@@ -12,7 +12,8 @@ const packages = [
     'sysinfo',
     'rot',
 ];
-const importTo = '/home/govi/dev/bin/clit';
+// const importTo = '/home/govi/dev/bin/clit';
+const importTo = 'D:/dev/bin';
 
 const symlinker = process.platform === 'win32'
     ? symlinkWindows
@@ -48,4 +49,5 @@ function symlinkLinux(from: string, to: string): void {
 
 function symlinkWindows(from: string, to: string): void {
     Bun.spawnSync(['cmd', '/c', 'mklink', to, from]);
+    // Bun.spawnSync(['New-Item', '-Path', to, '-ItemType', 'SymbolicLink', '-Value', from]);
 }
