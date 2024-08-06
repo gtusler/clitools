@@ -1,0 +1,9 @@
+[package]
+name = "clitinfo"
+description = "Prints information about the other packages in clitools"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap.workspace = true
+librs.workspace = true

@@ -1,0 +1,8 @@
+[package]
+name = "librs"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+battery.workspace = true
+platform-lp.workspace = true

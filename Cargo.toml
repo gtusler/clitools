@@ -1,0 +1,42 @@
+[package]
+name = "clitools"
+description = "A collection of cli tools"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clitinfo.workspace = true
+countlines.workspace = true
+mimers.workspace = true
+sysinfo.workspace = true
+rot.workspace = true
+librs.workspace = true
+
+[workspace]
+members = [
+    "pkgs/clitinfo",
+    "pkgs/countlines",
+    "pkgs/librs",
+    "pkgs/mimers",
+    "pkgs/rot",
+    "pkgs/sysinfo",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+
+[workspace.dependencies]
+clitools = { version = "0.1.0", path = "." }
+clitinfo = { version = "0.1.0", path = "pkgs/clitinfo" }
+countlines = { version = "0.1.0", path = "pkgs/countlines" }
+librs = { version = "0.1.0", path = "pkgs/librs" }
+mimers = { version = "0.1.0", path = "pkgs/mimers" }
+sysinfo = { version = "0.1.0", path = "pkgs/sysinfo" }
+rot = { version = "0.1.0", path = "pkgs/rot" }
+
+battery = "0.7.8"
+clap = { version = "4.5.11", features = ["derive"] }
+mime_more = "0.1.7"
+# mime_more = { version = "0.1.7", features = ["magic", "extension", "extension-light", "texture"] }
+platform-lp = "0.2.2"

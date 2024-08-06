@@ -1,0 +1,8 @@
+[package]
+name = "mimers"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clap.workspace = true
+mime_more.workspace = true
