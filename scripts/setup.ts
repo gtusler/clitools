@@ -2,7 +2,7 @@
 
 import path from 'path';
 import chalk from 'chalk';
-import { mkdirSync, symlinkSync } from 'fs';
+import { mkdirSync } from 'fs';
 
 
 const packages = [
@@ -13,6 +13,10 @@ const packages = [
     'rot',
 ];
 const importTo = '/home/govi/dev/bin/clit';
+
+const symlinker = process.platform === 'win32'
+    ? symlinkWindows
+    : symlinkLinux;
 
 async function doTheThing() {
     const importToFile = Bun.file(importTo);
@@ -30,10 +34,18 @@ async function doTheThing() {
 
         if (! await pkgOutputFile.exists()) {
             console.log(pkgBinPath, '->', pkgOutputPath);
-            // Bun.spawnSync(['ln', '-s', path.resolve(pkgBinPath), pkgOutputPath]);
-            symlinkSync(pkgBinPath, pkgOutputPath, 'file');
+            // symlinkSync(pkgBinPath, pkgOutputPath, 'file');
+            symlinker(path.resolve(pkgBinPath), pkgOutputPath);
         }
     }
 }
 
 doTheThing();
+
+function symlinkLinux(from: string, to: string): void {
+    Bun.spawnSync(['ln', '-s', from, to]);
+}
+
+function symlinkWindows(from: string, to: string): void {
+    Bun.spawnSync(['cmd', '/c', 'mklink', to, from]);
+}
