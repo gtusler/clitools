@@ -2,7 +2,7 @@
 
 import path from 'path';
 import chalk from 'chalk';
-import { mkdirSync } from 'fs';
+import { mkdirSync, symlinkSync } from 'fs';
 
 
 const packages = [
@@ -30,7 +30,8 @@ async function doTheThing() {
 
         if (! await pkgOutputFile.exists()) {
             console.log(pkgBinPath, '->', pkgOutputPath);
-            Bun.spawnSync(['ln', '-s', path.resolve(pkgBinPath), pkgOutputPath]);
+            // Bun.spawnSync(['ln', '-s', path.resolve(pkgBinPath), pkgOutputPath]);
+            symlinkSync(pkgBinPath, pkgOutputPath, 'file');
         }
     }
 }
