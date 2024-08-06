@@ -15,15 +15,23 @@ fn main() {
     println!("sysinfo\n");
 
     let platform = UserPlatform::detect();
-    println!("Platform: {}", platform);
+    println!("Platform: {}\n", platform);
 
     let batteries_info = get_battery_info();
     print_batteries_info(batteries_info);
 
     println!("");
 
-    let monitors = get_monitors();
-    print_monitors(monitors);
+    let monitors_result = get_monitors();
+
+    match monitors_result {
+        Ok(monitors) => {
+            print_monitors(monitors);
+        }
+        Err(err) => {
+            println!("{}", err);
+        }
+    };
 
     println!("");
 }

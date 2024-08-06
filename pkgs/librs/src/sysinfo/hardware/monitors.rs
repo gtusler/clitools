@@ -1,4 +1,22 @@
-use std::{fmt::Display, process::{Command, Stdio}};
+use std::{error::Error, fmt::Display, process::{Command, Stdio}};
+
+use crate::subprocess::which::which;
+
+#[derive(Debug)]
+pub enum GetMonitorError {
+    NoUsableCommand,
+}
+
+impl Error for GetMonitorError {}
+
+impl Display for GetMonitorError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let msg = match self {
+            GetMonitorError::NoUsableCommand => "Failed to find a program to detect monitor information",
+        };
+        write!(f, "{}", msg)
+    }
+}
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct Monitor {
@@ -39,7 +57,19 @@ pub fn print_monitors(monitors: Vec<Monitor>) -> () {
     }
 }
 
-pub fn get_monitors() -> Vec<Monitor> {
+pub fn get_monitors() -> Result<Vec<Monitor>, GetMonitorError> {
+    let which_xrandr = which("xrandr");
+    match which_xrandr {
+        Some(_) => {
+            return Ok(get_monitors_xrandr());
+        }
+        None => {
+            return Err(GetMonitorError::NoUsableCommand);
+        }
+    }
+}
+
+pub fn get_monitors_xrandr() -> Vec<Monitor> {
     let xrandr_child = Command::new("xrandr")
         .stdout(Stdio::piped())
         .spawn()
