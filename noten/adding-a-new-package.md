@@ -32,6 +32,11 @@ scripts/build.sh
 cargo build --release --package package_name
 ```
 
+scripts/build.bat
+```sh
+cargo build --release --package package_name
+```
+
 scripts/setup.ts
 ```ts
 const packages = [
