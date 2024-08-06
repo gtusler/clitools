@@ -14,6 +14,9 @@ fn main() {
 
     println!("sysinfo\n");
 
+    let platform = UserPlatform::detect();
+    println!("Platform: {}", platform);
+
     let batteries_info = get_battery_info();
     print_batteries_info(batteries_info);
 
@@ -23,7 +26,4 @@ fn main() {
     print_monitors(monitors);
 
     println!("");
-
-    let platform = UserPlatform::detect();
-    println!("Platform: {}", platform);
 }

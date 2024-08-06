@@ -4,6 +4,9 @@ So far, I have only implemented things which work on linux. I will, at some poin
 ### Windows
 [wmic](https://ss64.com/nt/wmic.html) is a great tool for gathering information on windows systems.
 
+https://superuser.com/questions/1234471/how-can-i-easily-get-the-manufacturer-and-model-of-my-monitor
+https://superuser.com/questions/1234471/how-can-i-easily-get-the-manufacturer-and-model-of-my-monitor
+
 ```sh
 wmic desktopmonitor get Caption, MonitorType, MonitorManufacturer, Name
 Caption             MonitorManufacturer         MonitorType         Name
