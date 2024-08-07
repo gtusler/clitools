@@ -59,8 +59,16 @@ pub fn parse_which_windows(input: &str) -> Option<String> {
         return None;
     }
 
-    let table = WindowsTable::from_str(input);
-    None
+    let table_result = WindowsTable::from_str(input);
+
+    match table_result {
+        Ok(table) => {
+            return table.get_cell("Source", 0);
+        }
+        Err(_) => {
+            return None;
+        }
+    }
 }
 
 #[cfg(test)]
