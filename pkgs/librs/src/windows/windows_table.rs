@@ -25,14 +25,14 @@ impl WindowsTable {
             }
 
             // headers live on the first line
-            if ! handled_headers {
+            if !handled_headers {
                 headers = parse_row(line);
                 handled_headers = true;
                 continue;
             }
 
             // the second line is a divider
-            if ! handled_dividers {
+            if !handled_dividers {
                 handled_dividers = true;
                 continue;
             }
@@ -40,10 +40,7 @@ impl WindowsTable {
             rows.push(parse_row(line));
         }
 
-        Ok(WindowsTable {
-            headers,
-            rows,
-        })
+        Ok(WindowsTable { headers, rows })
     }
 
     pub fn headers_len(&self) -> usize {
@@ -115,7 +112,7 @@ pub enum WindowsTableError {
     InvalidInput,
 }
 
-impl Error for WindowsTableError { }
+impl Error for WindowsTableError {}
 
 impl Display for WindowsTableError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -166,7 +163,10 @@ Cmdlet          Connect-PSSession                                  7.4.3.500  Mi
 
     #[test]
     fn it_fails_with_strange_input() {
-        assert_eq!(WindowsTable::from_str("wooooooo").unwrap_err(), WindowsTableError::InvalidInput);
+        assert_eq!(
+            WindowsTable::from_str("wooooooo").unwrap_err(),
+            WindowsTableError::InvalidInput
+        );
     }
 
     #[test]
@@ -181,14 +181,12 @@ Cmdlet          Connect-PSSession                                  7.4.3.500  Mi
         let table = WindowsTable::from_str(GET_COMMAND_ONE).unwrap();
         assert_eq!(
             table.get_row(0),
-            Some(
-                &vec![
-                    "Application".to_string(),
-                    "ipconfig.exe".to_string(),
-                    "10.0.2262…".to_string(),
-                    "C:\\windows\\system32\\ipconfig.exe".to_string(),
-                ]
-            )
+            Some(&vec![
+                "Application".to_string(),
+                "ipconfig.exe".to_string(),
+                "10.0.2262…".to_string(),
+                "C:\\windows\\system32\\ipconfig.exe".to_string(),
+            ])
         );
     }
 
@@ -237,31 +235,58 @@ Cmdlet          Connect-PSSession                                  7.4.3.500  Mi
         assert_eq!(table.get_cell("CommandType", 0), Some("Cmdlet".to_string()));
         assert_eq!(table.get_cell("Name", 0), Some("Add-History".to_string()));
         assert_eq!(table.get_cell("Version", 0), Some("7.4.3.500".to_string()));
-        assert_eq!(table.get_cell("Source", 0), Some("Microsoft.PowerShell.Core".to_string()));
+        assert_eq!(
+            table.get_cell("Source", 0),
+            Some("Microsoft.PowerShell.Core".to_string())
+        );
 
         assert_eq!(table.get_cell("CommandType", 1), Some("Cmdlet".to_string()));
         assert_eq!(table.get_cell("Name", 1), Some("Clear-History".to_string()));
         assert_eq!(table.get_cell("Version", 1), Some("7.4.3.500".to_string()));
-        assert_eq!(table.get_cell("Source", 1), Some("Microsoft.PowerShell.Core".to_string()));
+        assert_eq!(
+            table.get_cell("Source", 1),
+            Some("Microsoft.PowerShell.Core".to_string())
+        );
 
         assert_eq!(table.get_cell("CommandType", 2), Some("Cmdlet".to_string()));
-        assert_eq!(table.get_cell("Name", 2), Some("Connect-PSSession".to_string()));
+        assert_eq!(
+            table.get_cell("Name", 2),
+            Some("Connect-PSSession".to_string())
+        );
         assert_eq!(table.get_cell("Version", 2), Some("7.4.3.500".to_string()));
-        assert_eq!(table.get_cell("Source", 2), Some("Microsoft.PowerShell.Core".to_string()));
+        assert_eq!(
+            table.get_cell("Source", 2),
+            Some("Microsoft.PowerShell.Core".to_string())
+        );
 
         assert_eq!(table.get_cell("CommandType", 3), Some("Cmdlet".to_string()));
         assert_eq!(table.get_cell("Name", 3), Some("Debug-Job".to_string()));
         assert_eq!(table.get_cell("Version", 3), Some("7.4.3.500".to_string()));
-        assert_eq!(table.get_cell("Source", 3), Some("Microsoft.PowerShell.Core".to_string()));
+        assert_eq!(
+            table.get_cell("Source", 3),
+            Some("Microsoft.PowerShell.Core".to_string())
+        );
 
         assert_eq!(table.get_cell("CommandType", 4), Some("Cmdlet".to_string()));
-        assert_eq!(table.get_cell("Name", 4), Some("Disable-ExperimentalFeature".to_string()));
+        assert_eq!(
+            table.get_cell("Name", 4),
+            Some("Disable-ExperimentalFeature".to_string())
+        );
         assert_eq!(table.get_cell("Version", 4), Some("7.4.3.500".to_string()));
-        assert_eq!(table.get_cell("Source", 4), Some("Microsoft.PowerShell.Core".to_string()));
+        assert_eq!(
+            table.get_cell("Source", 4),
+            Some("Microsoft.PowerShell.Core".to_string())
+        );
 
         assert_eq!(table.get_cell("CommandType", 5), Some("Cmdlet".to_string()));
-        assert_eq!(table.get_cell("Name", 5), Some("Disable-PSRemoting".to_string()));
+        assert_eq!(
+            table.get_cell("Name", 5),
+            Some("Disable-PSRemoting".to_string())
+        );
         assert_eq!(table.get_cell("Version", 5), Some("7.4.3.500".to_string()));
-        assert_eq!(table.get_cell("Source", 5), Some("Microsoft.PowerShell.Core".to_string()));
+        assert_eq!(
+            table.get_cell("Source", 5),
+            Some("Microsoft.PowerShell.Core".to_string())
+        );
     }
 }

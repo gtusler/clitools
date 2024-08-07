@@ -1,4 +1,8 @@
-use std::{error::Error, fmt::Display, process::{Command, Stdio}};
+use std::{
+    error::Error,
+    fmt::Display,
+    process::{Command, Stdio},
+};
 
 use crate::subprocess::which::which;
 
@@ -12,7 +16,9 @@ impl Error for GetMonitorError {}
 impl Display for GetMonitorError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let msg = match self {
-            GetMonitorError::NoUsableCommand => "Failed to find a program to detect monitor information",
+            GetMonitorError::NoUsableCommand => {
+                "Failed to find a program to detect monitor information"
+            }
         };
         write!(f, "{}", msg)
     }
@@ -30,11 +36,7 @@ pub struct Monitor {
 
 impl Display for Monitor {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let suffix = if self.is_primary {
-            " primary"
-        } else {
-            ""
-        };
+        let suffix = if self.is_primary { " primary" } else { "" };
         write!(
             f,
             "{} ({}x{}) ({}mm x {}mm){}",
@@ -75,7 +77,9 @@ pub fn get_monitors_xrandr() -> Vec<Monitor> {
         .spawn()
         .expect("Failed to start xrandr process");
 
-    let xrandr_out = xrandr_child.wait_with_output().expect("Failed to open xrandr stdout");
+    let xrandr_out = xrandr_child
+        .wait_with_output()
+        .expect("Failed to open xrandr stdout");
     let xrandr_ascii = xrandr_out.stdout.as_ascii().expect("That aint ascii");
     let xrandr_str = xrandr_ascii.as_str();
     let xrandr_monitors = parse_xrandr(xrandr_str);
@@ -87,26 +91,36 @@ pub fn parse_xrandr(input: &str) -> Vec<Monitor> {
     let split = input.split('\n');
 
     let meaningful: Vec<&str> = split
-        .filter(|line| ! line.starts_with("Screen"))
-        .filter(|line| ! line.starts_with("  "))
+        .filter(|line| !line.starts_with("Screen"))
+        .filter(|line| !line.starts_with("  "))
         .filter(|line| *line != "")
         .collect();
 
     let mut output: Vec<Monitor> = vec![];
 
     for line in meaningful {
-        let split: Vec<&str> = line
-            .split(" ")
-            .filter(|word| *word != "primary")
-            .collect();
+        let split: Vec<&str> = line.split(" ").filter(|word| *word != "primary").collect();
 
         let name = split.get(0).expect("Unable to parse name").to_string();
         let is_primary = line.contains("primary");
-        let real_width_str = split.get(11).expect("Unable to find real width").to_string().replace("mm", "");
+        let real_width_str = split
+            .get(11)
+            .expect("Unable to find real width")
+            .to_string()
+            .replace("mm", "");
         let real_width: u16 = real_width_str.parse().expect("Failed to parse real width");
-        let real_height_str = split.get(13).expect("Unable to find real height").to_string().replace("mm", "");
-        let real_height: u16 = real_height_str.parse().expect("Failed to parse real height");
-        let dimensions_line = split.get(2).expect("Unable to find dimensions line").to_string();
+        let real_height_str = split
+            .get(13)
+            .expect("Unable to find real height")
+            .to_string()
+            .replace("mm", "");
+        let real_height: u16 = real_height_str
+            .parse()
+            .expect("Failed to parse real height");
+        let dimensions_line = split
+            .get(2)
+            .expect("Unable to find dimensions line")
+            .to_string();
         let pixel_dimensions = parse_xrandr_dimensions(dimensions_line);
 
         output.push(Monitor {
@@ -127,8 +141,12 @@ pub fn parse_xrandr_dimensions(input: String) -> (u16, u16) {
     let dimensions_str = split_top.get(0).expect("Failed to find dimensions in line");
     let dimensions_split: Vec<&str> = dimensions_str.split("x").collect();
 
-    let width_str = dimensions_split.get(0).expect("Failed to find width in line");
-    let height_str = dimensions_split.get(1).expect("Failed to find height in line");
+    let width_str = dimensions_split
+        .get(0)
+        .expect("Failed to find width in line");
+    let height_str = dimensions_split
+        .get(1)
+        .expect("Failed to find height in line");
 
     let width: u16 = width_str.parse().expect("Failed to parse pixel width");
     let height: u16 = height_str.parse().expect("Failed to parse pixel height");
@@ -218,7 +236,7 @@ XWAYLAND1 connected 3840x2160+1920+0 (normal left inverted right x axis y axis) 
                 pixel_height: 2160,
                 real_width: 600,
                 real_height: 340,
-            }
+            },
         ];
         assert_eq!(parse_xrandr(INPUT), output);
     }

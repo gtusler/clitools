@@ -15,7 +15,7 @@ fn main() {
             Arg::new("charset")
                 .help("One of: (az, a9)")
                 .short('c')
-                .long("charset")
+                .long("charset"),
         )
         .arg(Arg::new("input").required(true).help("A string to rotate"))
         .get_matches();
@@ -24,7 +24,9 @@ fn main() {
     let rotation: u8 = rotation_string.parse::<u8>().unwrap();
 
     let charset_default = String::from("a9");
-    let charset_raw = matches.get_one::<String>("charset").unwrap_or(&charset_default);
+    let charset_raw = matches
+        .get_one::<String>("charset")
+        .unwrap_or(&charset_default);
     let charset = Charset::from_string(charset_raw.to_string());
 
     match charset {
@@ -32,9 +34,7 @@ fn main() {
             println!("Error: {}", e);
             process::exit(1);
         }
-        _ => {
-            ()
-        }
+        _ => (),
     }
 
     let input = matches.get_one::<String>("input").unwrap();

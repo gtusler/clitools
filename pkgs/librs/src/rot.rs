@@ -12,9 +12,7 @@ impl Charset {
         match input.as_str() {
             "az" => Ok(Charset::AtoZ),
             "a9" => Ok(Charset::AlphaNumeric),
-            _ => {
-                Err(CharsetError::FailedParse(input))
-            }
+            _ => Err(CharsetError::FailedParse(input)),
         }
     }
 }
@@ -47,7 +45,6 @@ impl Display for CharsetError {
     }
 }
 
-
 pub const CHARSET_ALPHA_NUMERIC: &str = "abcdefghijklmnopqrstuvwxyz0123456789";
 pub const CHARSET_LETTERS: &str = "abcdefghijklmnopqrstuvwxyz";
 
@@ -69,9 +66,17 @@ pub fn rot(rotation: u8, mut input: String, charset: Charset) -> Result<String, 
         }
 
         let char_idx: u16 = u16::try_from(char_idx.unwrap()).expect("char out of charset range");
-        let rotated_idx_modded = wrap_u16(char_idx + range_mod, rotation.into(), range_mod, charset_len - 1 + range_mod);
+        let rotated_idx_modded = wrap_u16(
+            char_idx + range_mod,
+            rotation.into(),
+            range_mod,
+            charset_len - 1 + range_mod,
+        );
         let rotated_idx = rotated_idx_modded - range_mod;
-        let rotated_char = chrset.chars().nth(usize::from(rotated_idx) + 0).expect("huhh");
+        let rotated_char = chrset
+            .chars()
+            .nth(usize::from(rotated_idx) + 0)
+            .expect("huhh");
         output.push(rotated_char);
     }
 
@@ -91,7 +96,6 @@ pub fn rot(rotation: u8, mut input: String, charset: Charset) -> Result<String, 
 //     }
 //     input
 // }
-
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum RotError {
@@ -145,208 +149,340 @@ mod tests {
 
     #[test]
     fn it_rotates_once() {
-        assert_eq!(rot(1, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("b"));
-        assert_eq!(rot(1, String::from("b"), Charset::AlphaNumeric).unwrap(), String::from("c"));
-        assert_eq!(rot(1, String::from("z"), Charset::AlphaNumeric).unwrap(), String::from("0"));
-        assert_eq!(rot(1, String::from("anything"), Charset::AlphaNumeric).unwrap(), String::from("bozuijoh"));
+        assert_eq!(
+            rot(1, String::from("a"), Charset::AlphaNumeric).unwrap(),
+            String::from("b")
+        );
+        assert_eq!(
+            rot(1, String::from("b"), Charset::AlphaNumeric).unwrap(),
+            String::from("c")
+        );
+        assert_eq!(
+            rot(1, String::from("z"), Charset::AlphaNumeric).unwrap(),
+            String::from("0")
+        );
+        assert_eq!(
+            rot(1, String::from("anything"), Charset::AlphaNumeric).unwrap(),
+            String::from("bozuijoh")
+        );
     }
 
     #[test]
     fn it_wraps() {
-        assert_eq!(rot(1, String::from("9"), Charset::AlphaNumeric).unwrap(), String::from("a"));
-        assert_eq!(rot(10, String::from("8"), Charset::AlphaNumeric).unwrap(), String::from("i"));
+        assert_eq!(
+            rot(1, String::from("9"), Charset::AlphaNumeric).unwrap(),
+            String::from("a")
+        );
+        assert_eq!(
+            rot(10, String::from("8"), Charset::AlphaNumeric).unwrap(),
+            String::from("i")
+        );
     }
 
     mod rotations {
         use super::*;
         #[test]
         fn it_rotates_0() {
-            assert_eq!(rot(0, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("a"));
+            assert_eq!(
+                rot(0, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("a")
+            );
         }
 
         #[test]
         fn it_rotates_1() {
-            assert_eq!(rot(1, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("b"));
+            assert_eq!(
+                rot(1, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("b")
+            );
         }
 
         #[test]
         fn it_rotates_2() {
-            assert_eq!(rot(2, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("c"));
+            assert_eq!(
+                rot(2, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("c")
+            );
         }
 
         #[test]
         fn it_rotates_3() {
-            assert_eq!(rot(3, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("d"));
+            assert_eq!(
+                rot(3, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("d")
+            );
         }
 
         #[test]
         fn it_rotates_4() {
-            assert_eq!(rot(4, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("e"));
+            assert_eq!(
+                rot(4, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("e")
+            );
         }
 
         #[test]
         fn it_rotates_5() {
-            assert_eq!(rot(5, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("f"));
+            assert_eq!(
+                rot(5, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("f")
+            );
         }
 
         #[test]
         fn it_rotates_6() {
-            assert_eq!(rot(6, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("g"));
+            assert_eq!(
+                rot(6, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("g")
+            );
         }
 
         #[test]
         fn it_rotates_7() {
-            assert_eq!(rot(7, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("h"));
+            assert_eq!(
+                rot(7, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("h")
+            );
         }
 
         #[test]
         fn it_rotates_8() {
-            assert_eq!(rot(8, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("i"));
+            assert_eq!(
+                rot(8, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("i")
+            );
         }
 
         #[test]
         fn it_rotates_9() {
-            assert_eq!(rot(9, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("j"));
+            assert_eq!(
+                rot(9, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("j")
+            );
         }
 
         #[test]
         fn it_rotates_10() {
-            assert_eq!(rot(10, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("k"));
+            assert_eq!(
+                rot(10, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("k")
+            );
         }
 
         #[test]
         fn it_rotates_11() {
-            assert_eq!(rot(11, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("l"));
+            assert_eq!(
+                rot(11, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("l")
+            );
         }
 
         #[test]
         fn it_rotates_12() {
-            assert_eq!(rot(12, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("m"));
+            assert_eq!(
+                rot(12, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("m")
+            );
         }
 
         #[test]
         fn it_rotates_13() {
-            assert_eq!(rot(13, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("n"));
+            assert_eq!(
+                rot(13, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("n")
+            );
         }
 
         #[test]
         fn it_rotates_14() {
-            assert_eq!(rot(14, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("o"));
+            assert_eq!(
+                rot(14, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("o")
+            );
         }
 
         #[test]
         fn it_rotates_15() {
-            assert_eq!(rot(15, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("p"));
+            assert_eq!(
+                rot(15, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("p")
+            );
         }
 
         #[test]
         fn it_rotates_16() {
-            assert_eq!(rot(16, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("q"));
+            assert_eq!(
+                rot(16, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("q")
+            );
         }
 
         #[test]
         fn it_rotates_17() {
-            assert_eq!(rot(17, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("r"));
+            assert_eq!(
+                rot(17, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("r")
+            );
         }
 
         #[test]
         fn it_rotates_18() {
-            assert_eq!(rot(18, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("s"));
+            assert_eq!(
+                rot(18, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("s")
+            );
         }
 
         #[test]
         fn it_rotates_19() {
-            assert_eq!(rot(19, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("t"));
+            assert_eq!(
+                rot(19, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("t")
+            );
         }
 
         #[test]
         fn it_rotates_20() {
-            assert_eq!(rot(20, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("u"));
+            assert_eq!(
+                rot(20, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("u")
+            );
         }
 
         #[test]
         fn it_rotates_21() {
-            assert_eq!(rot(21, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("v"));
+            assert_eq!(
+                rot(21, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("v")
+            );
         }
 
         #[test]
         fn it_rotates_22() {
-            assert_eq!(rot(22, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("w"));
+            assert_eq!(
+                rot(22, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("w")
+            );
         }
 
         #[test]
         fn it_rotates_23() {
-            assert_eq!(rot(23, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("x"));
+            assert_eq!(
+                rot(23, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("x")
+            );
         }
 
         #[test]
         fn it_rotates_24() {
-            assert_eq!(rot(24, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("y"));
+            assert_eq!(
+                rot(24, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("y")
+            );
         }
 
         #[test]
         fn it_rotates_25() {
-            assert_eq!(rot(25, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("z"));
+            assert_eq!(
+                rot(25, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("z")
+            );
         }
 
         #[test]
         fn it_rotates_26() {
-            assert_eq!(rot(26, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("0"));
+            assert_eq!(
+                rot(26, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("0")
+            );
         }
 
         #[test]
         fn it_rotates_27() {
-            assert_eq!(rot(27, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("1"));
+            assert_eq!(
+                rot(27, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("1")
+            );
         }
 
         #[test]
         fn it_rotates_28() {
-            assert_eq!(rot(28, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("2"));
+            assert_eq!(
+                rot(28, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("2")
+            );
         }
 
         #[test]
         fn it_rotates_29() {
-            assert_eq!(rot(29, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("3"));
+            assert_eq!(
+                rot(29, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("3")
+            );
         }
 
         #[test]
         fn it_rotates_30() {
-            assert_eq!(rot(30, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("4"));
+            assert_eq!(
+                rot(30, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("4")
+            );
         }
 
         #[test]
         fn it_rotates_31() {
-            assert_eq!(rot(31, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("5"));
+            assert_eq!(
+                rot(31, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("5")
+            );
         }
 
         #[test]
         fn it_rotates_32() {
-            assert_eq!(rot(32, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("6"));
+            assert_eq!(
+                rot(32, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("6")
+            );
         }
 
         #[test]
         fn it_rotates_33() {
-            assert_eq!(rot(33, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("7"));
+            assert_eq!(
+                rot(33, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("7")
+            );
         }
 
         #[test]
         fn it_rotates_34() {
-            assert_eq!(rot(34, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("8"));
+            assert_eq!(
+                rot(34, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("8")
+            );
         }
 
         #[test]
         fn it_rotates_35() {
-            assert_eq!(rot(35, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("9"));
+            assert_eq!(
+                rot(35, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("9")
+            );
         }
 
         #[test]
         fn it_rotates_36() {
-            assert_eq!(rot(36, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("a"));
+            assert_eq!(
+                rot(36, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("a")
+            );
         }
 
         #[test]
         fn it_rotates_37() {
-            assert_eq!(rot(37, String::from("a"), Charset::AlphaNumeric).unwrap(), String::from("b"));
+            assert_eq!(
+                rot(37, String::from("a"), Charset::AlphaNumeric).unwrap(),
+                String::from("b")
+            );
         }
     }
 }

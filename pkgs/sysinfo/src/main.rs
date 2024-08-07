@@ -2,9 +2,9 @@ use clap::Command;
 use librs::sysinfo::{
     hardware::{
         battery::{get_battery_info, print_batteries_info},
-        monitors::{get_monitors, print_monitors}
+        monitors::{get_monitors, print_monitors},
     },
-    software::platform::UserPlatform
+    software::platform::UserPlatform,
 };
 
 fn main() {

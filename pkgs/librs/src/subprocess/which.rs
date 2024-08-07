@@ -24,8 +24,13 @@ pub fn which_linux(cmd_name: &str) -> Option<String> {
         .spawn()
         .expect("Failed to start which process");
 
-    let which_out = which_child.wait_with_output().expect("Failed to open which stdout");
-    let which_ascii = which_out.stdout.as_ascii().expect("which output isn't ascii");
+    let which_out = which_child
+        .wait_with_output()
+        .expect("Failed to open which stdout");
+    let which_ascii = which_out
+        .stdout
+        .as_ascii()
+        .expect("which output isn't ascii");
     let which_str = which_ascii.as_str();
 
     parse_which_linux(which_str)
@@ -47,8 +52,13 @@ pub fn which_windows(cmd_name: &str) -> Option<String> {
         .spawn()
         .expect("Failed to start Get-Command");
 
-    let which_out = which_child.wait_with_output().expect("Failed to open Get-Command stdout");
-    let which_ascii = which_out.stdout.as_ascii().expect("Get-Command output isn't ascii");
+    let which_out = which_child
+        .wait_with_output()
+        .expect("Failed to open Get-Command stdout");
+    let which_ascii = which_out
+        .stdout
+        .as_ascii()
+        .expect("Get-Command output isn't ascii");
     let which_str = which_ascii.as_str();
 
     parse_which_linux(which_str)
@@ -88,7 +98,10 @@ Check the spelling of the name, or if a path was included, verify that the path 
 
     #[test]
     fn it_parses_a_linux_path() {
-        assert_eq!(parse_which_linux(LINUX_INPUT_FOUND), Some(String::from("/usr/bin/zsh")));
+        assert_eq!(
+            parse_which_linux(LINUX_INPUT_FOUND),
+            Some(String::from("/usr/bin/zsh"))
+        );
     }
 
     #[test]
@@ -98,7 +111,10 @@ Check the spelling of the name, or if a path was included, verify that the path 
 
     #[test]
     fn it_parses_a_windows_path() {
-        assert_eq!(parse_which_windows(WINDOWS_INPUT_FOUND), Some(String::from("C:\\windows\\system32\\ipconfig.exe")));
+        assert_eq!(
+            parse_which_windows(WINDOWS_INPUT_FOUND),
+            Some(String::from("C:\\windows\\system32\\ipconfig.exe"))
+        );
     }
 
     #[test]

@@ -6,8 +6,7 @@ pub fn wrap_u16(input: u16, amount: u16, min: u16, max: u16) -> u16 {
         output - max
     } else if output < min {
         input + amount + min
-    }
-    else {
+    } else {
         output
     }
 }
@@ -25,7 +24,6 @@ pub fn wrap_u16(input: u16, amount: u16, min: u16, max: u16) -> u16 {
 //     }
 //     input
 // }
-
 
 #[cfg(test)]
 mod tests {
