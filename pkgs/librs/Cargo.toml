@@ -6,3 +6,4 @@ edition.workspace = true
 [dependencies]
 battery.workspace = true
 platform-lp.workspace = true
+serde.workspace = true

@@ -4,6 +4,8 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-clap.workspace = true
 battery.workspace = true
+clap.workspace = true
 librs.workspace = true
+serde.workspace = true
+serde_json.workspace = true

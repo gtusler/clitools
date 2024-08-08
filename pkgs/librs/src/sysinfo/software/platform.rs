@@ -1,5 +1,7 @@
 use std::fmt::Display;
+use serde::Serialize;
 
+#[derive(Debug, Serialize)]
 pub struct UserPlatform {
     pub platform: String,
     pub is_x86: bool,

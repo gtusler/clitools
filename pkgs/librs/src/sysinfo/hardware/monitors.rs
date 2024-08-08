@@ -3,10 +3,10 @@ use std::{
     fmt::Display,
     process::{Command, Stdio},
 };
-
+use serde::Serialize;
 use crate::subprocess::which::which;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub enum GetMonitorError {
     NoUsableCommand,
 }
@@ -24,7 +24,7 @@ impl Display for GetMonitorError {
     }
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Serialize)]
 pub struct Monitor {
     pub name: String,
     pub is_primary: bool,

@@ -1,5 +1,7 @@
 #![feature(ascii_char)]
 
+pub mod cli;
+pub mod distro;
 pub mod math;
 pub mod rot;
 pub mod subprocess;
