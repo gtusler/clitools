@@ -1,11 +1,11 @@
 use std::fmt::Display;
-use librs::sysinfo::{
+use librs::{subprocess::uname::Uname, sysinfo::{
     hardware::{
         battery::{get_battery_info, BatteryInfo},
         monitors::{get_monitors, GetMonitorError, Monitor},
     },
     software::platform::UserPlatform,
-};
+}};
 use serde::Serialize;
 
 #[derive(Debug, Serialize)]
@@ -13,6 +13,7 @@ pub struct SysInfo {
     platform: UserPlatform,
     batteries: Vec<BatteryInfo>,
     monitors: Result<Vec<Monitor>, GetMonitorError>,
+    uname: Option<Uname>,
 }
 
 impl SysInfo {
@@ -20,11 +21,17 @@ impl SysInfo {
         let platform = UserPlatform::detect();
         let batteries = get_battery_info();
         let monitors = get_monitors();
+        let uname = if platform.platform.contains("Linux") {
+            Some(Uname::spawn_and_parse())
+        } else {
+            None
+        };
 
         SysInfo {
             platform,
             batteries,
             monitors,
+            uname,
         }
     }
 
@@ -41,7 +48,13 @@ impl Display for SysInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let platform = format!("Platform: {}", self.platform);
 
-        let mut lines: Vec<String> = vec![platform];
+        let mut lines: Vec<String> = Vec::new();
+
+        if let Some(uname) = &self.uname {
+            lines.push(format!("uname:\n{}", uname));
+            lines.push(String::from(""));
+        }
+        lines.push(platform);
 
         lines.push(String::from(""));
         if self.batteries.len() == 1 {

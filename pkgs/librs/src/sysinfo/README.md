@@ -1,7 +1,11 @@
 # System Information
 So far, I have only implemented things which work on linux. I will, at some point, update with some `cfg` stuff, implementing a matching set of features for Windows.
 
-### Windows
+### Linux os detection
+check [this](https://github.com/dylanaraps/neofetch/blob/master/neofetch#L937) for a method of loosely detecting distros.
+
+
+### Windows monitors
 [wmic](https://ss64.com/nt/wmic.html) is a great tool for gathering information on windows systems.
 
 https://superuser.com/questions/1234471/how-can-i-easily-get-the-manufacturer-and-model-of-my-monitor
