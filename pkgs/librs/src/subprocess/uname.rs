@@ -1,4 +1,7 @@
-use std::{fmt::Display, process::{Command, Stdio}};
+use std::{
+    fmt::Display,
+    process::{Command, Stdio},
+};
 
 use serde::Serialize;
 
@@ -37,8 +40,14 @@ impl Uname {
         let kernel_version = fields.get(3).expect("Failed to get kernel-version").clone();
         let machine = fields.get(4).expect("Failed to get machine").clone();
         let processor = fields.get(5).expect("Failed to get processor").clone();
-        let hardware_platform = fields.get(6).expect("Failed to get hardware-platform").clone();
-        let operating_system = fields.get(7).expect("Failed to get operating-system").clone();
+        let hardware_platform = fields
+            .get(6)
+            .expect("Failed to get hardware-platform")
+            .clone();
+        let operating_system = fields
+            .get(7)
+            .expect("Failed to get operating-system")
+            .clone();
 
         Uname {
             kernel_name,

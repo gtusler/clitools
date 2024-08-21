@@ -6,4 +6,6 @@ edition.workspace = true
 [dependencies]
 battery.workspace = true
 platform-lp.workspace = true
+progressing.workspace = true
 serde.workspace = true
+terminal = { version = "0.2.1", features = ["crossterm-backend"] }

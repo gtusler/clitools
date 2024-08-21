@@ -1,12 +1,15 @@
-use std::fmt::Display;
-use librs::{subprocess::uname::Uname, sysinfo::{
-    hardware::{
-        battery::{get_battery_info, BatteryInfo},
-        monitors::{get_monitors, GetMonitorError, Monitor},
+use librs::{
+    subprocess::uname::Uname,
+    sysinfo::{
+        hardware::{
+            battery::{get_battery_info, BatteryInfo},
+            monitors::{get_monitors, GetMonitorError, Monitor},
+        },
+        software::platform::UserPlatform,
     },
-    software::platform::UserPlatform,
-}};
+};
 use serde::Serialize;
+use std::fmt::Display;
 
 #[derive(Debug, Serialize)]
 pub struct SysInfo {

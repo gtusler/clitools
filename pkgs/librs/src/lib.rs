@@ -3,6 +3,7 @@
 pub mod cli;
 pub mod distro;
 pub mod math;
+pub mod progressbar;
 pub mod rot;
 pub mod subprocess;
 pub mod sysinfo;

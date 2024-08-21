@@ -9,11 +9,12 @@ const packages = [
     'clitinfo',
     'countlines',
     'mimers',
+    'progressbar',
     'sysinfo',
     'rot',
 ];
-// const importTo = '/home/govi/dev/bin/clit';
-const importTo = 'D:/dev/bin';
+const importTo = '/home/govi/dev/bin/clit';
+// const importTo = 'D:/dev/bin';
 
 const symlinker = process.platform === 'win32'
     ? symlinkWindows

@@ -1,5 +1,5 @@
-use std::fmt::Display;
 use serde::Serialize;
+use std::fmt::Display;
 
 #[derive(Debug, Serialize)]
 pub struct BatteryInfo {
@@ -127,7 +127,9 @@ impl From<battery::Technology> for Technology {
             battery::Technology::NickelCadmium => Technology::NickelCadmium,
             battery::Technology::NickelZinc => Technology::NickelZinc,
             battery::Technology::LithiumIronPhosphate => Technology::LithiumIronPhosphate,
-            battery::Technology::RechargeableAlkalineManganese => Technology::RechargeableAlkalineManganese,
+            battery::Technology::RechargeableAlkalineManganese => {
+                Technology::RechargeableAlkalineManganese
+            }
             _ => Technology::Unknown,
         }
     }

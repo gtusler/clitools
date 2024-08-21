@@ -1,10 +1,10 @@
+use crate::subprocess::which::which;
+use serde::Serialize;
 use std::{
     error::Error,
     fmt::Display,
     process::{Command, Stdio},
 };
-use serde::Serialize;
-use crate::subprocess::which::which;
 
 #[derive(Debug, Serialize)]
 pub enum GetMonitorError {

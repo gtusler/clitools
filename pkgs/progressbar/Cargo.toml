@@ -1,0 +1,12 @@
+[package]
+name = "progressbar"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clap.workspace = true
+ctrlc.workspace = true
+librs.workspace = true
+progress = "0.2"
+ml-progress = "0.1.0"
+progressing.workspace = true

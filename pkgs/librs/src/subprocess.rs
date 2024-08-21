@@ -1,2 +1,2 @@
-pub mod which;
 pub mod uname;
+pub mod which;
