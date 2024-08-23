@@ -6,4 +6,6 @@ edition = "2021"
 
 [dependencies]
 clap.workspace = true
+dirs.workspace = true
 librs.workspace = true
+toml.workspace = true

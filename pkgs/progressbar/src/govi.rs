@@ -16,7 +16,7 @@ pub fn do_progress_govi(style: Style, max: usize, step: usize, sleep: usize) -> 
         bar_style,
         pause_on_fin: true,
     });
-    let mut exited = false;
+    // let mut exited = false;
     let started = progress_controller.start();
 
     match started {
@@ -29,7 +29,7 @@ pub fn do_progress_govi(style: Style, max: usize, step: usize, sleep: usize) -> 
 
     let (tx, _rx) = channel();
     ctrlc::set_handler(move || {
-        exited = true;
+        // exited = true;
         tx.send(()).expect("Could not send signal on channel")
     })
     .expect("Error setting Ctrl-c handler");
@@ -40,11 +40,11 @@ pub fn do_progress_govi(style: Style, max: usize, step: usize, sleep: usize) -> 
 
     // for i in 1..max {
     for i in 1..max + 1 {
-        if exited {
-            let _ = progress_controller.stop();
-            eprintln!("interrupt");
-            process::exit(1);
-        }
+        // if exited {
+        //     let _ = progress_controller.stop();
+        //     eprintln!("interrupt");
+        //     process::exit(1);
+        // }
         // println!("{}", i);
         let _ = progress_controller.tick(Some(format!("step {}", i.to_string())));
         thread::sleep(sleep_duration);

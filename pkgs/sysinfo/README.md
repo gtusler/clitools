@@ -36,6 +36,7 @@ As for a feature set, I think something like this would be appropriate:
     - [ ] Shell detection
     - [ ] Desktop Environment
     - [ ] Window Manager
+    - [ ] user dirs [from this](https://crates.io/crates/dirs)
 - [ ] Process information
 - [ ] Network information
     - [ ] LAN IP

@@ -20,6 +20,14 @@ impl UserPlatform {
             is_x64,
         }
     }
+
+    pub fn is_windows(&self) -> bool {
+        !self.platform.contains("Linux")
+    }
+
+    pub fn is_linux(&self) -> bool {
+        self.platform.contains("Linux")
+    }
 }
 
 impl Display for UserPlatform {
