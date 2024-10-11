@@ -5,6 +5,8 @@ edition.workspace = true
 
 [dependencies]
 battery.workspace = true
+chrono.workspace = true
+clap.workspace = true
 platform-lp.workspace = true
 progressing.workspace = true
 serde.workspace = true

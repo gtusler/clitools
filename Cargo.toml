@@ -7,10 +7,11 @@ edition.workspace = true
 [dependencies]
 clitinfo.workspace = true
 countlines.workspace = true
-mimers.workspace = true
-sysinfo.workspace = true
-rot.workspace = true
 librs.workspace = true
+mimers.workspace = true
+rot.workspace = true
+sysinfo.workspace = true
+timers.workspace = true
 
 [workspace]
 members = [
@@ -21,6 +22,7 @@ members = [
     "pkgs/progressbar",
     "pkgs/rot",
     "pkgs/sysinfo",
+    "pkgs/timers",
 ]
 
 [workspace.package]
@@ -36,15 +38,20 @@ mimers = { version = "0.1.0", path = "pkgs/mimers" }
 progressbar = { version = "0.1.0", path = "pkgs/progressbar" }
 sysinfo = { version = "0.1.0", path = "pkgs/sysinfo" }
 rot = { version = "0.1.0", path = "pkgs/rot" }
+timers = { version = "0.1.0", path = "pkgs/timers" }
 
 battery = "0.7.8"
+chrono = "0.4.38"
 clap = { version = "4.5.11", features = ["derive"] }
+color-print = "0.3.6"
 ctrlc = "3.4.5"
 dirs = "5.0.1"
 mime_more = "0.1.7"
 # mime_more = { version = "0.1.7", features = ["magic", "extension", "extension-light", "texture"] }
 platform-lp = "0.2.2"
+pretty-duration = "0.1.1"
 progressing = "3.0.2"
 serde = { version = "1.0.204", features = ["derive"] }
 serde_json = "1.0.122"
+sqlite = "0.36.1"
 toml = "0.8.19"

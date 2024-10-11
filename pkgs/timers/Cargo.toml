@@ -1,0 +1,13 @@
+[package]
+name = "timers"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+chrono.workspace = true
+clap.workspace = true
+color-print.workspace = true
+dirs.workspace = true
+librs.workspace = true
+pretty-duration.workspace = true
+sqlite.workspace = true

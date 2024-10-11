@@ -10,8 +10,9 @@ const packages = [
     'countlines',
     'mimers',
     'progressbar',
-    'sysinfo',
     'rot',
+    'sysinfo',
+    'timers',
 ];
 const importTo = '/home/govi/dev/bin/clit';
 // const importTo = 'D:/dev/bin';
@@ -30,6 +31,7 @@ async function doTheThing() {
 
     for (let i = 0; i < packages.length; i++) {
         const pkg = packages[i];
+        console.log(pkg);
         const pkgBinPath = path.join('target', 'release', pkg);
         const pkgOutputPath = path.join(importTo, pkg);
         const pkgOutputFile = Bun.file(pkgOutputPath);
