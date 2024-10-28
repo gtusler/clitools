@@ -8,21 +8,27 @@ edition.workspace = true
 clitinfo.workspace = true
 countlines.workspace = true
 librs.workspace = true
+listdirs.workspace = true
+installer.workspace = true
 mimers.workspace = true
 rot.workspace = true
 sysinfo.workspace = true
 timers.workspace = true
+uninstaller.workspace = true
 
 [workspace]
 members = [
     "pkgs/clitinfo",
     "pkgs/countlines",
+    "pkgs/installer",
     "pkgs/librs",
+    "pkgs/listdirs",
     "pkgs/mimers",
     "pkgs/progressbar",
     "pkgs/rot",
     "pkgs/sysinfo",
     "pkgs/timers",
+    "pkgs/uninstaller",
 ]
 
 [workspace.package]
@@ -33,12 +39,15 @@ edition = "2021"
 clitools = { version = "0.1.0", path = "." }
 clitinfo = { version = "0.1.0", path = "pkgs/clitinfo" }
 countlines = { version = "0.1.0", path = "pkgs/countlines" }
+installer = { version = "0.1.0", path = "pkgs/installer" }
 librs = { version = "0.1.0", path = "pkgs/librs" }
+listdirs = { version = "0.1.0", path = "pkgs/listdirs" }
 mimers = { version = "0.1.0", path = "pkgs/mimers" }
 progressbar = { version = "0.1.0", path = "pkgs/progressbar" }
 sysinfo = { version = "0.1.0", path = "pkgs/sysinfo" }
 rot = { version = "0.1.0", path = "pkgs/rot" }
 timers = { version = "0.1.0", path = "pkgs/timers" }
+uninstaller = { version = "0.1.0", path = "pkgs/uninstaller" }
 
 battery = "0.7.8"
 chrono = "0.4.38"

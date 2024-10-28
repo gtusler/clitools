@@ -1,0 +1,8 @@
+[package]
+name = "uninstaller"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clap.workspace = true
+librs.workspace = true

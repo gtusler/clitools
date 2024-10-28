@@ -9,5 +9,7 @@ First, run:
 git clone git@github.com:gtusler/clitools.git
 cd clitools
 ./scripts/build.sh
+./bin/install
 ```
+
 Then, you want to configure `importTo` in `./scripts/setup.ts`, using a path that makes sense for your system. The path supplied should point to somewhere on `$PATH`, because the intention is for these tools to be easily accessible via the command line.

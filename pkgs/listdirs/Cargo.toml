@@ -1,0 +1,9 @@
+[package]
+name = "listdirs"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clap.workspace = true
+dirs.workspace = true
+librs.workspace = true
