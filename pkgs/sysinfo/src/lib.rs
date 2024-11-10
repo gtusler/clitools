@@ -1,5 +1,5 @@
 use clap::{Arg, ArgMatches, Command};
-use librs::cli::output_format::OutputFormat;
+use librs::cli::{cli_style::cli_style, output_format::OutputFormat};
 use crate::sys_info::SysInfo;
 
 mod sys_info;
@@ -7,6 +7,7 @@ mod sys_info;
 pub fn command() -> Command {
     Command::new("sysinfo")
         .about("Get information about the system")
+        .styles(cli_style())
         .arg(
             Arg::new("format")
                 .short('f')

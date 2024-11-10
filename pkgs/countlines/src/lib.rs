@@ -3,12 +3,14 @@ use std::{
     path::Path,
 };
 use clap::{Arg, ArgMatches, Command};
+use librs::cli::cli_style::cli_style;
 
 pub fn command() -> Command {
     Command::new("countlines")
         .about("Counts the lines in the given file")
         .version("0.1.0")
         .arg(Arg::new("file").required(true).help("The file to count"))
+        .styles(cli_style())
 }
 
 pub fn handle(matches: &ArgMatches) -> i32 {

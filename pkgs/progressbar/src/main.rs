@@ -1,6 +1,7 @@
 use args::Args;
 use clap::{Arg, ArgAction, ArgMatches, Command};
 use govi::do_progress_govi;
+use librs::cli::cli_style::cli_style;
 use ml_progress::do_progress_ml_progress;
 use progress::do_progress_progress;
 use progressing::{do_progress_progressing, BarType, Style};
@@ -35,6 +36,7 @@ fn main() {
     let matches = Command::new("progress")
         .about("An exploration of termnial progress bars")
         .version("0.1.0")
+        .styles(cli_style())
         .subcommand_required(true)
         .subcommand(
             Command::new("progress")

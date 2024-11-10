@@ -1,9 +1,10 @@
 use clap::{Arg, ArgMatches, Command};
-use librs::rot::{rot, Charset};
+use librs::{cli::cli_style::cli_style, rot::{rot, Charset}};
 
 pub fn command() -> Command {
     Command::new("rot")
         .about("The rot cipher in cli form")
+        .styles(cli_style())
         .arg(
             Arg::new("rotation")
                 .required(true)

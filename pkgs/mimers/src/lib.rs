@@ -1,4 +1,5 @@
 use std::{fs::canonicalize, path::Path, process};
+use librs::cli::cli_style::cli_style;
 use mime_more::from_path_and_content;
 use clap::{Arg, ArgMatches, Command};
 
@@ -6,6 +7,7 @@ pub fn command() -> Command {
     Command::new("mimers")
         .about("Get mime-type information about the given file")
         .version("0.1.0")
+        .styles(cli_style())
         .arg(
             Arg::new("file")
                 .required(true)
