@@ -185,17 +185,17 @@ fn format_string(name: &str, value: &String) -> String {
 }
 
 /// Apply toml formatting to a Vec<String>
-fn format_vec_string(name: &str, input: &Vec<String>) -> String {
-    if input.len() == 0 {
+fn format_vec_string(name: &str, input: &[String]) -> String {
+    if input.is_empty() {
         return format!("{} = []", name);
     }
 
     if input.len() < 3 {
-        return format!("{}", name);
+        return name.to_owned();
     }
 
     let lines: Vec<String> = input
-        .into_iter()
+        .iter()
         .map(|line| format!("    \"{}\"", line))
         .collect();
 

@@ -13,7 +13,7 @@ pub struct BatteryInfo {
 }
 
 impl BatteryInfo {
-    pub fn print(&self) -> () {
+    pub fn print(&self) {
         println!("#{}", self.idx);
         if let Some(vendor) = &self.vendor {
             println!("Vendor: {}", vendor);
@@ -144,19 +144,9 @@ pub fn get_battery_info() -> Vec<BatteryInfo> {
     for (idx, maybe_battery) in batteries.enumerate() {
         let battery = maybe_battery.expect("Failed to enumerate battery");
 
-        let vendor = match battery.vendor() {
-            Some(vendor_str) => Some(vendor_str.to_string()),
-            None => None,
-        };
-        let model = match battery.model() {
-            Some(model_str) => Some(model_str.to_string()),
-            None => None,
-        };
-        let temperature = match battery.temperature() {
-            Some(temp) => Some(format!("{:?}", temp)),
-            None => None,
-        };
-
+        let vendor = battery.vendor().map(|vendor_str| vendor_str.to_string());
+        let model = battery.model().map(|model_str| model_str.to_string());
+        let temperature = battery.temperature().map(|temp| format!("{:?}", temp));
         let state_of_health = format!("{:?}", battery.state_of_health());
 
         let battery_info = BatteryInfo {
@@ -175,7 +165,7 @@ pub fn get_battery_info() -> Vec<BatteryInfo> {
     output
 }
 
-pub fn print_batteries_info(batteries: Vec<BatteryInfo>) -> () {
+pub fn print_batteries_info(batteries: Vec<BatteryInfo>) {
     let suffix = if batteries.len() == 1 { "y" } else { "ies" };
     println!("{} batter{}", batteries.len(), suffix);
 

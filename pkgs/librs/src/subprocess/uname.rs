@@ -34,7 +34,7 @@ impl Uname {
             fields.push(filled_field);
         }
 
-        let kernel_name = fields.get(0).expect("Failed to get kernel-name").clone();
+        let kernel_name = fields.first().expect("Failed to get kernel-name").clone();
         let nodename = fields.get(1).expect("Failed to get nodename").clone();
         let kernel_release = fields.get(2).expect("Failed to get kernel-release").clone();
         let kernel_version = fields.get(3).expect("Failed to get kernel-version").clone();

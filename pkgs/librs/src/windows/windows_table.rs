@@ -1,4 +1,4 @@
-use std::{error::Error, fmt::Display};
+use std::{error::Error, fmt::Display, str::FromStr};
 
 #[derive(Debug)]
 pub struct WindowsTable {
@@ -7,7 +7,49 @@ pub struct WindowsTable {
 }
 
 impl WindowsTable {
-    pub fn from_str(input: &str) -> Result<WindowsTable, WindowsTableError> {
+    pub fn headers_len(&self) -> usize {
+        self.headers.len()
+    }
+
+    /// Get the index of the given header, case insensitive
+    pub fn header_idx(&self, name: &str) -> Option<usize> {
+        for (idx, header_name) in self.headers.iter().enumerate() {
+            if header_name.to_lowercase() == name.to_lowercase() {
+                return Some(idx);
+            }
+        }
+
+        None
+    }
+
+    /// None if idx is out of bounds
+    pub fn get_row(&self, idx: usize) -> Option<&Vec<String>> {
+        self.rows.get(idx)
+    }
+
+    pub fn rows_len(&self) -> usize {
+        self.rows.len()
+    }
+
+    /// Get the contents of a cell, based on a header name
+    pub fn get_cell(&self, header: &str, row: usize) -> Option<String> {
+        let header_idx = self.header_idx(header)?;
+        let the_row = self.rows.get(row)?;
+        let the_cell = the_row.get(header_idx)?;
+
+        Some(the_cell.clone())
+    }
+
+    pub fn print(&self) {
+        println!("{:#?}", self.headers);
+        println!("{:#?}", self.rows);
+    }
+}
+
+impl FromStr for WindowsTable {
+    type Err = WindowsTableError;
+
+    fn from_str(input: &str) -> Result<Self, Self::Err> {
         let lines: Vec<&str> = input.split('\n').collect();
         let mut headers: Vec<String> = Vec::new();
         let mut rows: Vec<Vec<String>> = Vec::new();
@@ -41,58 +83,6 @@ impl WindowsTable {
         }
 
         Ok(WindowsTable { headers, rows })
-    }
-
-    pub fn headers_len(&self) -> usize {
-        self.headers.len()
-    }
-
-    /// Get the index of the given header, case insensitive
-    pub fn header_idx(&self, name: &str) -> Option<usize> {
-        for (idx, header_name) in self.headers.iter().enumerate() {
-            if header_name.to_lowercase() == name.to_lowercase() {
-                return Some(idx);
-            }
-        }
-
-        None
-    }
-
-    /// None if idx is out of bounds
-    pub fn get_row(&self, idx: usize) -> Option<&Vec<String>> {
-        self.rows.get(idx)
-    }
-
-    pub fn rows_len(&self) -> usize {
-        self.rows.len()
-    }
-
-    /// Get the contents of a cell, based on a header name
-    pub fn get_cell(&self, header: &str, row: usize) -> Option<String> {
-        let header_idx = self.header_idx(header);
-
-        if header_idx == None {
-            return None;
-        }
-
-        let the_row = self.rows.get(row);
-
-        if the_row == None {
-            return None;
-        }
-
-        let the_cell = the_row.unwrap().get(header_idx.unwrap());
-
-        if the_cell == None {
-            return None;
-        }
-
-        the_cell.cloned()
-    }
-
-    pub fn print(&self) -> () {
-        println!("{:#?}", self.headers);
-        println!("{:#?}", self.rows);
     }
 }
 

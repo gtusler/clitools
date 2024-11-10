@@ -1,4 +1,4 @@
-use std::process::{Command, Stdio};
+use std::{process::{Command, Stdio}, str::FromStr};
 
 use crate::{sysinfo::software::platform, windows::windows_table::WindowsTable};
 
@@ -73,10 +73,10 @@ pub fn parse_which_windows(input: &str) -> Option<String> {
 
     match table_result {
         Ok(table) => {
-            return table.get_cell("Source", 0);
+            table.get_cell("Source", 0)
         }
         Err(_) => {
-            return None;
+            None
         }
     }
 }

@@ -1,12 +1,6 @@
-use clap::Command;
-use librs::cli::cli_style::cli_style;
-
 fn main() {
-    let command = Command::new("clit-uninstall")
-        .about("Perform system-wide removal of clitools")
-        .styles(cli_style());
+    let matches = uninstaller::command().get_matches();
+    let exit_code = uninstaller::handle(&matches);
 
-    let _matches = command.get_matches();
-
-    println!("uninstalled successfully");
+    std::process::exit(exit_code);
 }

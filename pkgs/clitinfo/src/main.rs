@@ -1,4 +1,3 @@
-use clap::Command;
 use librs::config_file::cargo_toml::CargoToml;
 use root_finder::find_root;
 use std::{fs::read_dir, process};
@@ -6,21 +5,18 @@ use std::{fs::read_dir, process};
 mod root_finder;
 
 fn main() {
-    let _ = Command::new("clitinfo")
-        .about("Prints information about the other packages in clitools")
-        .version("0.1.0")
-        .get_matches();
+    let _ = clitinfo::command().get_matches();
 
     println!("development of this has halted because it's a pain to parse Cargo.toml files. Tried stealing something from cargo source code but couldn't find anything immediately obvious");
 
-    let root_dir = find_root();
+    let root_dir = match find_root() {
+        None => {
+            eprintln!("Unable to find root directory.");
+            process::exit(1);
+        }
+        Some(root) => root,
+    };
 
-    if let None = root_dir {
-        eprintln!("Unable to find root directory.");
-        process::exit(1);
-    }
-
-    let root_dir = root_dir.unwrap();
     let mut pkgs_dir = root_dir.clone();
     pkgs_dir.push("pkgs");
 
@@ -56,6 +52,6 @@ fn main() {
         println!("{:?}", entry_name);
         println!("{:?}", cargo_toml_path);
         println!("{}", cargo_toml);
-        println!("");
+        println!();
     }
 }

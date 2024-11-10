@@ -72,11 +72,11 @@ LIMIT 2
         let partials = gather_partials_from_statement(statement, &project)?;
         let paired = gather_partial_pairs(partials)?;
 
-        if paired.len() == 0 {
+        if paired.is_empty() {
             return Err(TimingError::NoMatch);
         }
 
-        match paired.get(0) {
+        match paired.first() {
             Some(timing) => Ok(timing.clone()),
             None => Err(TimingError::NoMatch),
         }
@@ -100,7 +100,7 @@ LIMIT 2
                 Ok(ev) => ev,
                 Err(e) => return Err(TimingError::SqliteError(e)),
             };
-            let event = TimerEvent::from_str(&event_raw);
+            let event = TimerEvent::from_str_clean(&event_raw);
 
             if event == TimerEvent::Start {
                 Timing::remove_by_id(connection, &id)?;
@@ -131,7 +131,7 @@ fn gather_partials_from_statement(
             Ok(ev) => ev,
             Err(e) => return Err(TimingError::SqliteError(e)),
         };
-        let event = TimerEvent::from_str(&event_raw);
+        let event = TimerEvent::from_str_clean(&event_raw);
         let time_raw = match statement.read::<String, _>("time") {
             Ok(t) => t,
             Err(e) => return Err(TimingError::SqliteError(e)),
@@ -161,7 +161,7 @@ fn gather_partial_pairs(partials: Vec<TimingPartial>) -> Result<Vec<Timing>, Tim
         }
 
         if partial.event == TimerEvent::Stop {
-            if let None = floating_partial {
+            if floating_partial.is_none() {
                 return Err(TimingError::NoMatch);
             }
 

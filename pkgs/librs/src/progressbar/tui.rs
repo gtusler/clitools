@@ -82,7 +82,7 @@ impl ProgressBarTui {
 
     /// Increment internal counters, progress to the next step
     pub fn tick(&mut self, msg: Option<String>) -> error::Result<()> {
-        self.current = self.current + self.config.step;
+        self.current += self.config.step;
 
         let bar = self.view.draw(self.current);
 
@@ -96,7 +96,7 @@ impl ProgressBarTui {
         if let Some(m) = msg {
             println!("{}", m);
         }
-        print!("\n");
+        println!();
 
         // then reprint the bar
         self.terminal
@@ -120,10 +120,16 @@ impl ProgressBarTui {
         input.clear();
         let _ = stdin.read_line(input);
 
-        if input.len() >= 1 {
+        if !input.is_empty() {
             return self.stop();
         }
 
         Ok(())
+    }
+}
+
+impl Default for ProgressBarTui {
+    fn default() -> Self {
+        Self::new()
     }
 }

@@ -19,8 +19,8 @@ pub struct ProgressBarTuiConfig {
     pub pause_on_fin: bool,
 }
 
-impl ProgressBarTuiConfig {
-    pub fn default() -> ProgressBarTuiConfig {
+impl Default for ProgressBarTuiConfig {
+    fn default() -> Self {
         ProgressBarTuiConfig {
             max: 100,
             step: 1,

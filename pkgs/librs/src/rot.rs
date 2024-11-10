@@ -54,14 +54,14 @@ pub fn rot(rotation: u8, mut input: String, charset: Charset) -> Result<String, 
         Charset::AtoZ => CHARSET_LETTERS,
         Charset::AlphaNumeric => CHARSET_ALPHA_NUMERIC,
     };
-    let charset_len: u16 = u16::try_from(chrset.len()).expect("charset is too long") - 0;
+    let charset_len: u16 = u16::try_from(chrset.len()).expect("charset is too long");
     let range_mod = 1;
     let mut output = String::new();
 
     for chr in input.chars() {
         let char_idx = chrset.find(chr);
 
-        if let None = char_idx {
+        if char_idx.is_none() {
             return Err(RotError::InvalidChar(chr, input.find(chr).unwrap()));
         }
 
@@ -75,7 +75,7 @@ pub fn rot(rotation: u8, mut input: String, charset: Charset) -> Result<String, 
         let rotated_idx = rotated_idx_modded - range_mod;
         let rotated_char = chrset
             .chars()
-            .nth(usize::from(rotated_idx) + 0)
+            .nth(usize::from(rotated_idx))
             .expect("huhh");
         output.push(rotated_char);
     }
