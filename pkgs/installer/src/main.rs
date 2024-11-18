@@ -27,7 +27,7 @@ Thought it would make a nice feature.
         .arg(
             Arg::new("shell")
                 .help("Which shell to include completion scripts for")
-                .value_parser(PossibleValuesParser::new(["bash", "zsh"]))
+                .value_parser(PossibleValuesParser::new(["bash", "zsh"])),
         )
         .arg(gen_completion::arg())
 }

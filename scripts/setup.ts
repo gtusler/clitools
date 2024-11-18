@@ -9,12 +9,14 @@ const packages = [
     'clitinfo',
     'clit-install',
     'countlines',
+    'diffdir',
     'listdirs',
     'mimers',
     'progressbar',
     'rot',
     'sysinfo',
     'timers',
+    'treers',
 ];
 const importTo = '/home/govi/dev/bin/clit';
 // const importTo = 'D:/dev/bin';

@@ -1,0 +1,40 @@
+#compdef diffdir
+
+autoload -U is-at-least
+
+_diffdir() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'--generate-completion=[Generates completion scripts for the given command]: :(bash elvish fish powershell zsh)' \
+'-r[Whether or not to recursively scan both directories]' \
+'--recursive[Whether or not to recursively scan both directories]' \
+'-m[Whether or not to use metadata (like file size, modified dates etc) to match file system entries]' \
+'--use-meta[Whether or not to use metadata (like file size, modified dates etc) to match file system entries]' \
+'-h[Print help]' \
+'--help[Print help]' \
+':dir1:_files -/' \
+':dir2:_files -/' \
+&& ret=0
+}
+
+(( $+functions[_diffdir_commands] )) ||
+_diffdir_commands() {
+    local commands; commands=()
+    _describe -t commands 'diffdir commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_diffdir" ]; then
+    _diffdir "$@"
+else
+    compdef _diffdir diffdir
+fi

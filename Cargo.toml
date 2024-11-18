@@ -20,6 +20,7 @@ uninstaller.workspace = true
 members = [
     "pkgs/clitinfo",
     "pkgs/countlines",
+    "pkgs/diffdir",
     "pkgs/installer",
     "pkgs/librs",
     "pkgs/listdirs",
@@ -28,6 +29,7 @@ members = [
     "pkgs/rot",
     "pkgs/sysinfo",
     "pkgs/timers",
+    "pkgs/treers",
     "pkgs/uninstaller",
 ]
 
@@ -39,6 +41,7 @@ edition = "2021"
 clitools = { version = "0.1.0", path = "." }
 clitinfo = { version = "0.1.0", path = "pkgs/clitinfo" }
 countlines = { version = "0.1.0", path = "pkgs/countlines" }
+diffdir = { version = "0.1.0", path = "pkgs/diffdir" }
 installer = { version = "0.1.0", path = "pkgs/installer" }
 librs = { version = "0.1.0", path = "pkgs/librs" }
 listdirs = { version = "0.1.0", path = "pkgs/listdirs" }
@@ -47,6 +50,7 @@ progressbar = { version = "0.1.0", path = "pkgs/progressbar" }
 sysinfo = { version = "0.1.0", path = "pkgs/sysinfo" }
 rot = { version = "0.1.0", path = "pkgs/rot" }
 timers = { version = "0.1.0", path = "pkgs/timers" }
+treers = { version = "0.1.0", path = "pkgs/treers" }
 uninstaller = { version = "0.1.0", path = "pkgs/uninstaller" }
 
 battery = "0.7.8"
@@ -65,3 +69,4 @@ serde = { version = "1.0.204", features = ["derive"] }
 serde_json = "1.0.122"
 sqlite = "0.36.1"
 toml = "0.8.19"
+walkdir = "2.5.0"

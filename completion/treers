@@ -1,8 +1,8 @@
-#compdef clit-install
+#compdef treers
 
 autoload -U is-at-least
 
-_clit-install() {
+_treers() {
     typeset -A opt_args
     typeset -a _arguments_options
     local ret=1
@@ -16,20 +16,20 @@ _clit-install() {
     local context curcontext="$curcontext" state line
     _arguments "${_arguments_options[@]}" : \
 '--generate-completion=[Generates completion scripts for the given command]: :(bash elvish fish powershell zsh)' \
-'-h[Print help (see more with '\''--help'\'')]' \
-'--help[Print help (see more with '\''--help'\'')]' \
-'::shell -- Which shell to include completion scripts for:(bash zsh)' \
+'-h[Print help]' \
+'--help[Print help]' \
+':dir -- The directory to tree:_files -/' \
 && ret=0
 }
 
-(( $+functions[_clit-install_commands] )) ||
-_clit-install_commands() {
+(( $+functions[_treers_commands] )) ||
+_treers_commands() {
     local commands; commands=()
-    _describe -t commands 'clit-install commands' commands "$@"
+    _describe -t commands 'treers commands' commands "$@"
 }
 
-if [ "$funcstack[1]" = "_clit-install" ]; then
-    _clit-install "$@"
+if [ "$funcstack[1]" = "_treers" ]; then
+    _treers "$@"
 else
-    compdef _clit-install clit-install
+    compdef _treers treers
 fi

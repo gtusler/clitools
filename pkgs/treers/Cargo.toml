@@ -1,0 +1,9 @@
+[package]
+name = "treers"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clap.workspace = true
+clap_complete.workspace = true
+librs.workspace = true
