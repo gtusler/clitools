@@ -101,9 +101,9 @@ impl From<&String> for Style {
     }
 }
 
-impl Into<BarStyle> for Style {
-    fn into(self) -> BarStyle {
-        match self {
+impl From<Style> for BarStyle {
+    fn from(value: Style) -> Self {
+        match value {
             Style::HashesPlain => BarStyle::HashesPlain,
             Style::HashesDashes => BarStyle::HashesDashes,
             Style::ArrowThin => BarStyle::ArrowThin,
@@ -119,7 +119,7 @@ pub fn do_progress_progressing(
     step: usize,
     sleep: usize,
     timed: bool,
-) -> () {
+) {
     match bar_type {
         BarType::Clamped => do_clamped(style, max, step, sleep, timed),
         BarType::Mapped => do_mapped(style, max, step, sleep, timed),
@@ -127,7 +127,7 @@ pub fn do_progress_progressing(
     }
 }
 
-fn do_clamped(style: Style, max: usize, step: usize, sleep: usize, timed: bool) -> () {
+fn do_clamped(style: Style, max: usize, step: usize, sleep: usize, timed: bool) {
     let sleep_u64 = u64::try_from(sleep).unwrap();
     let sleep_duration = Duration::from_secs(sleep_u64);
 
@@ -138,7 +138,7 @@ fn do_clamped(style: Style, max: usize, step: usize, sleep: usize, timed: bool) 
     }
 }
 
-fn do_clamped_timed(style: Style, max: usize, step: usize, sleep: Duration) -> () {
+fn do_clamped_timed(style: Style, max: usize, step: usize, sleep: Duration) {
     let mut progress_bar = ClampingBar::with(ClampingConfig {
         bar_len: max,
         style: style.to_pattern(),
@@ -158,7 +158,7 @@ fn do_clamped_timed(style: Style, max: usize, step: usize, sleep: Duration) -> (
     }
 }
 
-fn do_clamped_untimed(style: Style, max: usize, step: usize, sleep: Duration) -> () {
+fn do_clamped_untimed(style: Style, max: usize, step: usize, sleep: Duration) {
     let mut progress_bar = ClampingBar::with(ClampingConfig {
         bar_len: max,
         style: style.to_pattern(),
@@ -177,7 +177,7 @@ fn do_clamped_untimed(style: Style, max: usize, step: usize, sleep: Duration) ->
     }
 }
 
-fn do_mapped(style: Style, max: usize, step: usize, sleep: usize, timed: bool) -> () {
+fn do_mapped(style: Style, max: usize, step: usize, sleep: usize, timed: bool) {
     let sleep_u64 = u64::try_from(sleep).unwrap();
     let sleep_duration = Duration::from_secs(sleep_u64);
 
@@ -188,7 +188,7 @@ fn do_mapped(style: Style, max: usize, step: usize, sleep: usize, timed: bool) -
     }
 }
 
-fn do_mapped_timed(style: Style, max: usize, step: usize, sleep: Duration) -> () {
+fn do_mapped_timed(style: Style, max: usize, step: usize, sleep: Duration) {
     let mut progress_bar = MappingBar::with(MappingConfig {
         bar_len: max,
         style: style.to_pattern(),
@@ -208,7 +208,7 @@ fn do_mapped_timed(style: Style, max: usize, step: usize, sleep: Duration) -> ()
     }
 }
 
-fn do_mapped_untimed(style: Style, max: usize, step: usize, sleep: Duration) -> () {
+fn do_mapped_untimed(style: Style, max: usize, step: usize, sleep: Duration) {
     let mut progress_bar = MappingBar::with(MappingConfig {
         bar_len: max,
         style: style.to_pattern(),
@@ -228,7 +228,7 @@ fn do_mapped_untimed(style: Style, max: usize, step: usize, sleep: Duration) -> 
     }
 }
 
-fn do_bernoulli(style: Style, max: usize, step: usize, sleep: usize, timed: bool) -> () {
+fn do_bernoulli(style: Style, max: usize, step: usize, sleep: usize, timed: bool) {
     let sleep_u64 = u64::try_from(sleep).unwrap();
     let sleep_duration = Duration::from_secs(sleep_u64);
 
@@ -239,10 +239,10 @@ fn do_bernoulli(style: Style, max: usize, step: usize, sleep: usize, timed: bool
     }
 }
 
-fn do_bernoulli_timed(_style: Style, _max: usize, _step: usize, _sleep: Duration) -> () {
+fn do_bernoulli_timed(_style: Style, _max: usize, _step: usize, _sleep: Duration) {
     todo!()
 }
 
-fn do_bernoulli_untimed(_style: Style, _max: usize, _step: usize, _sleep: Duration) -> () {
+fn do_bernoulli_untimed(_style: Style, _max: usize, _step: usize, _sleep: Duration) {
     todo!()
 }
