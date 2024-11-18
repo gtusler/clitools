@@ -1,10 +1,8 @@
-use std::{process, sync::mpsc::channel, thread, time::Duration};
-
+use super::progressing::Style;
 use librs::progressbar::{
     bar_style::BarStyle, bar_width::BarWidth, tui::ProgressBarTui, tui_config::ProgressBarTuiConfig,
 };
-
-use crate::progressing::Style;
+use std::{process, sync::mpsc::channel, thread, time::Duration};
 
 pub fn do_progress_govi(style: Style, max: usize, step: usize, sleep: usize) -> () {
     let bar_style: BarStyle = style.into();

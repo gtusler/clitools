@@ -1,11 +1,18 @@
-use librs::config_file::cargo_toml::CargoToml;
+use clap_complete::Shell;
+use librs::{cli::gen_completion::print_completions, config_file::cargo_toml::CargoToml};
 use root_finder::find_root;
 use std::{fs::read_dir, process};
 
 mod root_finder;
 
 fn main() {
-    let _ = clitinfo::command().get_matches();
+    let matches = clitinfo::command().get_matches();
+
+    if let Some(generator) = matches.get_one::<Shell>("generator").copied() {
+        let mut cmd = clitinfo::command();
+        print_completions(generator, &mut cmd);
+        process::exit(0);
+    }
 
     println!("development of this has halted because it's a pain to parse Cargo.toml files. Tried stealing something from cargo source code but couldn't find anything immediately obvious");
 

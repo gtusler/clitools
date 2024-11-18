@@ -1,0 +1,22 @@
+use crate::{
+    args::{self, parser::Args},
+    progress_bars::ml_progress::do_progress_ml_progress,
+};
+use clap::{ArgMatches, Command};
+
+pub fn command() -> Command {
+    Command::new("ml-progress")
+        .about("use the `ml-progress` package to draw progress bars")
+        .arg_required_else_help(true)
+        .arg(args::defs::max())
+        .arg(args::defs::step())
+        .arg(args::defs::sleep())
+        .arg(args::defs::timed())
+}
+
+pub fn handle(matches: &ArgMatches) -> i32 {
+    let args = Args::from_matches(matches);
+    do_progress_ml_progress(args.max, args.step, args.sleep);
+
+    0
+}

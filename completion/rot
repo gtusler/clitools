@@ -1,0 +1,38 @@
+#compdef rot
+
+autoload -U is-at-least
+
+_rot() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'-c+[One of\: (az, a9)]: :_default' \
+'--charset=[One of\: (az, a9)]: :_default' \
+'--generate-completion=[Generates completion scripts for the given command]: :(bash elvish fish powershell zsh)' \
+'-h[Print help]' \
+'--help[Print help]' \
+':rotation -- How much of a rotation should be used:_default' \
+':input -- A string to rotate:_default' \
+&& ret=0
+}
+
+(( $+functions[_rot_commands] )) ||
+_rot_commands() {
+    local commands; commands=()
+    _describe -t commands 'rot commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_rot" ]; then
+    _rot "$@"
+else
+    compdef _rot rot
+fi

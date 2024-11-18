@@ -62,12 +62,8 @@ pub fn print_monitors(monitors: Vec<Monitor>) {
 pub fn get_monitors() -> Result<Vec<Monitor>, GetMonitorError> {
     let which_xrandr = which("xrandr");
     match which_xrandr {
-        Some(_) => {
-            Ok(get_monitors_xrandr())
-        }
-        None => {
-            Err(GetMonitorError::NoUsableCommand)
-        }
+        Some(_) => Ok(get_monitors_xrandr()),
+        None => Err(GetMonitorError::NoUsableCommand),
     }
 }
 
@@ -136,7 +132,9 @@ pub fn parse_xrandr(input: &str) -> Vec<Monitor> {
 
 pub fn parse_xrandr_dimensions(input: String) -> (u16, u16) {
     let split_top: Vec<&str> = input.split("+").collect();
-    let dimensions_str = split_top.first().expect("Failed to find dimensions in line");
+    let dimensions_str = split_top
+        .first()
+        .expect("Failed to find dimensions in line");
     let dimensions_split: Vec<&str> = dimensions_str.split("x").collect();
 
     let width_str = dimensions_split

@@ -1,18 +1,17 @@
 use std::{error::Error, fmt::Display};
 
 #[derive(Debug)]
-pub enum BuilderError {
-    Placeholder,
+pub enum FsError {
+    FileNotFound,
 }
 
-impl Error for BuilderError {}
+impl Error for FsError {}
 
-impl Display for BuilderError {
+impl Display for FsError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let msg = match self {
-            Self::Placeholder => String::from("Placeholder error"),
+            Self::FileNotFound => "File Not Found",
         };
-
         write!(f, "{}", msg)
     }
 }

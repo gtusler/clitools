@@ -1,19 +1,37 @@
+use clap::{builder::PathBufValueParser, Arg, ArgMatches, Command, ValueHint};
+use clap_complete::Shell;
+use librs::cli::{
+    cli_style::cli_style,
+    gen_completion::{self, print_completions},
+};
 use std::{
     fs::{self, canonicalize},
     path::Path,
+    process,
 };
-use clap::{Arg, ArgMatches, Command};
-use librs::cli::cli_style::cli_style;
 
 pub fn command() -> Command {
     Command::new("countlines")
         .about("Counts the lines in the given file")
         .version("0.1.0")
-        .arg(Arg::new("file").required(true).help("The file to count"))
+        .arg(
+            Arg::new("file")
+                .help("The file to count")
+                .required(true)
+                .value_hint(ValueHint::FilePath)
+                .value_parser(PathBufValueParser::new()),
+        )
+        .arg(gen_completion::arg())
         .styles(cli_style())
 }
 
 pub fn handle(matches: &ArgMatches) -> i32 {
+    if let Some(generator) = matches.get_one::<Shell>("generator").copied() {
+        let mut cmd = command();
+        print_completions(generator, &mut cmd);
+        process::exit(0);
+    }
+
     let file_path_str = matches.get_one::<String>("file").unwrap();
     let file_path = Path::new(file_path_str);
 

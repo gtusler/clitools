@@ -1,7 +1,11 @@
-use std::{fs::canonicalize, path::Path, process};
-use librs::cli::cli_style::cli_style;
-use mime_more::from_path_and_content;
 use clap::{Arg, ArgMatches, Command};
+use clap_complete::Shell;
+use librs::cli::{
+    cli_style::cli_style,
+    gen_completion::{self, print_completions},
+};
+use mime_more::from_path_and_content;
+use std::{fs::canonicalize, path::Path, process};
 
 pub fn command() -> Command {
     Command::new("mimers")
@@ -13,9 +17,16 @@ pub fn command() -> Command {
                 .required(true)
                 .help("The file to slap a mime type on"),
         )
+        .arg(gen_completion::arg())
 }
 
 pub fn handle(matches: &ArgMatches) -> i32 {
+    if let Some(generator) = matches.get_one::<Shell>("generator").copied() {
+        let mut cmd = command();
+        print_completions(generator, &mut cmd);
+        process::exit(0);
+    }
+
     let file_path_str = matches.get_one::<String>("file").expect("required arg");
     let file_path = Path::new(file_path_str);
 

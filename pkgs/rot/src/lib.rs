@@ -1,5 +1,13 @@
 use clap::{Arg, ArgMatches, Command};
-use librs::{cli::cli_style::cli_style, rot::{rot, Charset}};
+use clap_complete::Shell;
+use librs::{
+    cli::{
+        cli_style::cli_style,
+        gen_completion::{self, print_completions},
+    },
+    rot::{rot, Charset},
+};
+use std::process;
 
 pub fn command() -> Command {
     Command::new("rot")
@@ -17,9 +25,16 @@ pub fn command() -> Command {
                 .long("charset"),
         )
         .arg(Arg::new("input").required(true).help("A string to rotate"))
+        .arg(gen_completion::arg())
 }
 
 pub fn handle(matches: &ArgMatches) -> i32 {
+    if let Some(generator) = matches.get_one::<Shell>("generator").copied() {
+        let mut cmd = command();
+        print_completions(generator, &mut cmd);
+        process::exit(0);
+    }
+
     let rotation_string = matches.get_one::<String>("rotation").unwrap();
     let rotation: u8 = rotation_string.parse::<u8>().unwrap();
 
@@ -33,7 +48,6 @@ pub fn handle(matches: &ArgMatches) -> i32 {
         eprintln!("Error: {}", e);
         return 1;
     }
-
 
     let input = matches.get_one::<String>("input").unwrap();
     let output = rot(rotation, input.to_string(), charset.unwrap());

@@ -13,8 +13,7 @@ pub fn find_root() -> Option<PathBuf> {
 
     let home_string = home.to_str().unwrap().to_owned();
 
-    let possible_paths: Vec<PathBuf> =
-        vec![PathBuf::from(home_string + "/dev/rs/clitools")];
+    let possible_paths: Vec<PathBuf> = vec![PathBuf::from(home_string + "/dev/rs/clitools")];
 
     possible_paths
         .into_iter()

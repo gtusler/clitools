@@ -1,0 +1,36 @@
+#compdef sysinfo
+
+autoload -U is-at-least
+
+_sysinfo() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'-f+[How should the data be output? One of\: print, json, json-pretty]: :_default' \
+'--format=[How should the data be output? One of\: print, json, json-pretty]: :_default' \
+'--generate-completion=[Generates completion scripts for the given command]: :(bash elvish fish powershell zsh)' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+}
+
+(( $+functions[_sysinfo_commands] )) ||
+_sysinfo_commands() {
+    local commands; commands=()
+    _describe -t commands 'sysinfo commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_sysinfo" ]; then
+    _sysinfo "$@"
+else
+    compdef _sysinfo sysinfo
+fi

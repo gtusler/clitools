@@ -1,6 +1,13 @@
-use clap::{Arg, ArgMatches, Command};
-use librs::cli::{cli_style::cli_style, output_format::OutputFormat};
+use std::process;
+
 use crate::sys_info::SysInfo;
+use clap::{Arg, ArgMatches, Command};
+use clap_complete::Shell;
+use librs::cli::{
+    cli_style::cli_style,
+    gen_completion::{self, print_completions},
+    output_format::OutputFormat,
+};
 
 mod sys_info;
 
@@ -16,9 +23,16 @@ pub fn command() -> Command {
                 .help_heading("Output Control")
                 .default_value("print"),
         )
+        .arg(gen_completion::arg())
 }
 
 pub fn handle(matches: &ArgMatches) -> i32 {
+    if let Some(generator) = matches.get_one::<Shell>("generator").copied() {
+        let mut cmd = command();
+        print_completions(generator, &mut cmd);
+        process::exit(0);
+    }
+
     let format_raw = matches.get_one::<String>("format");
     let output_format = OutputFormat::from_raw(format_raw);
 

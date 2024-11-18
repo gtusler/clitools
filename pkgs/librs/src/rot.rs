@@ -73,10 +73,7 @@ pub fn rot(rotation: u8, mut input: String, charset: Charset) -> Result<String, 
             charset_len - 1 + range_mod,
         );
         let rotated_idx = rotated_idx_modded - range_mod;
-        let rotated_char = chrset
-            .chars()
-            .nth(usize::from(rotated_idx))
-            .expect("huhh");
+        let rotated_char = chrset.chars().nth(usize::from(rotated_idx)).expect("huhh");
         output.push(rotated_char);
     }
 

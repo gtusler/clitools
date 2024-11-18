@@ -15,17 +15,11 @@ pub fn main_dir() -> Result<PathBuf, MainDirError> {
             }
 
             match std::fs::create_dir(&dir) {
-                Ok(_) => {
-                    Ok(dir)
-                }
-                Err(e) => {
-                    Err(MainDirError::UnableToCreate(e))
-                }
+                Ok(_) => Ok(dir),
+                Err(e) => Err(MainDirError::UnableToCreate(e)),
             }
         }
-        None => {
-            Err(MainDirError::NoDataDir)
-        }
+        None => Err(MainDirError::NoDataDir),
     }
 }
 

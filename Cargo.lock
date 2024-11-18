@@ -185,9 +185,9 @@ dependencies = [
 
 [[package]]
 name = "clap"
-version = "4.5.11"
+version = "4.5.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "35723e6a11662c2afb578bcf0b88bf6ea8e21282a953428f240574fcc3a2b5b3"
+checksum = "fb3b4b9e5a7c7514dfa52869339ee98b3156b0bfb4e8a77c4ff4babb64b1604f"
 dependencies = [
  "clap_builder",
  "clap_derive",
@@ -195,9 +195,9 @@ dependencies = [
 
 [[package]]
 name = "clap_builder"
-version = "4.5.11"
+version = "4.5.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "49eb96cbfa7cfa35017b7cd548c75b14c3118c98b423041d70562665e07fb0fa"
+checksum = "b17a95aa67cc7b5ebd32aa5370189aa0d79069ef1c64ce893bd30fb24bff20ec"
 dependencies = [
  "anstream",
  "anstyle",
@@ -206,10 +206,19 @@ dependencies = [
 ]
 
 [[package]]
-name = "clap_derive"
-version = "4.5.11"
+name = "clap_complete"
+version = "4.5.38"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5d029b67f89d30bbb547c89fd5161293c0aec155fc691d7924b64550662db93e"
+checksum = "d9647a559c112175f17cf724dc72d3645680a883c58481332779192b0d8e7a01"
+dependencies = [
+ "clap",
+]
+
+[[package]]
+name = "clap_derive"
+version = "4.5.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4ac6a0c7b1a9e9a5186361f67dfa1b88213572f427fb9ab038efb2bd8c582dab"
 dependencies = [
  "heck",
  "proc-macro2",
@@ -228,6 +237,7 @@ name = "clitinfo"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "clap_complete",
  "dirs",
  "librs",
  "toml",
@@ -312,6 +322,7 @@ name = "countlines"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "clap_complete",
  "librs",
 ]
 
@@ -454,6 +465,8 @@ name = "installer"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "clap_complete",
+ "dirs",
  "librs",
 ]
 
@@ -533,6 +546,7 @@ dependencies = [
  "cargo_metadata",
  "chrono",
  "clap",
+ "clap_complete",
  "platform-lp",
  "progressing",
  "serde",
@@ -545,6 +559,7 @@ name = "listdirs"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "clap_complete",
  "dirs",
  "librs",
 ]
@@ -611,6 +626,7 @@ name = "mimers"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "clap_complete",
  "librs",
  "mime_more",
 ]
@@ -862,6 +878,7 @@ name = "progressbar"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "clap_complete",
  "ctrlc",
  "librs",
  "ml-progress",
@@ -939,6 +956,7 @@ name = "rot"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "clap_complete",
  "librs",
 ]
 
@@ -1096,6 +1114,7 @@ version = "0.1.0"
 dependencies = [
  "battery",
  "clap",
+ "clap_complete",
  "librs",
  "serde",
  "serde_json",
@@ -1147,6 +1166,7 @@ version = "0.1.0"
 dependencies = [
  "chrono",
  "clap",
+ "clap_complete",
  "color-print",
  "dirs",
  "librs",
@@ -1205,6 +1225,7 @@ name = "uninstaller"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "clap_complete",
  "librs",
 ]
 

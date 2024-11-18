@@ -4,15 +4,11 @@ The aim with this package is to install all the cli tools contained within the r
 
 There are some interesting things here, which I haven't covered before.
 
+## The plan
 
-# Uninstaller
+For the sake of future-proofing, this package assumes that the binaries are already built and shell completion scripts are already built.
 
-It's probably worth also building an uninstaller alongside this.
+Make a global dir to move the binaries to, or choose an appropriate place based on the OS.
+Detect the current shell and add the binaries to `$PATH`, then load the shell completion scripts.
 
-The `timers` package creates a global dir and makes a database in there. That should be removed when doing global uninstall.
-
-
-
-
-
-
+Run initial setup for each package that requires it, for example the `timers` package requires a global database where it stores timer info.

@@ -52,6 +52,7 @@ uninstaller = { version = "0.1.0", path = "pkgs/uninstaller" }
 battery = "0.7.8"
 chrono = "0.4.38"
 clap = { version = "4.5.11", features = ["derive"] }
+clap_complete = "4.5.38"
 color-print = "0.3.6"
 ctrlc = "3.4.5"
 dirs = "5.0.1"
