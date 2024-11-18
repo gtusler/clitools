@@ -1,4 +1,4 @@
-use clap::Command;
+use clap::{builder::PossibleValuesParser, Arg, Command};
 use clap_complete::Shell;
 use installer::fs::main_dirs;
 use librs::cli::{
@@ -24,6 +24,11 @@ Thought it would make a nice feature.
             "#,
         )
         .styles(cli_style())
+        .arg(
+            Arg::new("shell")
+                .help("Which shell to include completion scripts for")
+                .value_parser(PossibleValuesParser::new(["bash", "zsh"]))
+        )
         .arg(gen_completion::arg())
 }
 
