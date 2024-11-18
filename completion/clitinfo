@@ -1,0 +1,36 @@
+#compdef clitinfo
+
+autoload -U is-at-least
+
+_clitinfo() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'--generate-completion=[Generates completion scripts for the given command]: :(bash elvish fish powershell zsh)' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+}
+
+(( $+functions[_clitinfo_commands] )) ||
+_clitinfo_commands() {
+    local commands; commands=()
+    _describe -t commands 'clitinfo commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_clitinfo" ]; then
+    _clitinfo "$@"
+else
+    compdef _clitinfo clitinfo
+fi

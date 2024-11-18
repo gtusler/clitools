@@ -1,12 +1,10 @@
-use std::{process, sync::mpsc::channel, thread, time::Duration};
-
+use super::progressing::Style;
 use librs::progressbar::{
     bar_style::BarStyle, bar_width::BarWidth, tui::ProgressBarTui, tui_config::ProgressBarTuiConfig,
 };
+use std::{process, sync::mpsc::channel, thread, time::Duration};
 
-use crate::progressing::Style;
-
-pub fn do_progress_govi(style: Style, max: usize, step: usize, sleep: usize) -> () {
+pub fn do_progress_govi(style: Style, max: usize, step: usize, sleep: usize) {
     let bar_style: BarStyle = style.into();
     let mut progress_controller = ProgressBarTui::with(ProgressBarTuiConfig {
         max,
@@ -46,7 +44,7 @@ pub fn do_progress_govi(style: Style, max: usize, step: usize, sleep: usize) -> 
         //     process::exit(1);
         // }
         // println!("{}", i);
-        let _ = progress_controller.tick(Some(format!("step {}", i.to_string())));
+        let _ = progress_controller.tick(Some(format!("step {}", i)));
         thread::sleep(sleep_duration);
     }
 

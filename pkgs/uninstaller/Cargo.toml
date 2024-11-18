@@ -1,0 +1,13 @@
+[package]
+name = "uninstaller"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "clit-uninstall"
+path = "src/main.rs"
+
+[dependencies]
+clap.workspace = true
+clap_complete.workspace = true
+librs.workspace = true

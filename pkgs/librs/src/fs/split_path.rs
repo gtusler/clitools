@@ -1,6 +1,6 @@
-use std::path::PathBuf;
+use std::path::Path;
 
-pub fn split_path_buf(path: &PathBuf) -> Vec<String> {
+pub fn split_path(path: &Path) -> Vec<String> {
     let path_str = path.to_str().expect("Unable to convert PathBuf to str");
 
     // there is definitely a better method of determining whether or not this is a windows path
@@ -13,11 +13,12 @@ pub fn split_path_buf(path: &PathBuf) -> Vec<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::path::PathBuf;
 
     #[test]
     fn it_splits_a_linux_path_in_two() {
         assert_eq!(
-            split_path_buf(&PathBuf::from("something/deep")),
+            split_path(&PathBuf::from("something/deep")),
             vec![String::from("something"), String::from("deep")]
         );
     }
@@ -25,7 +26,7 @@ mod tests {
     #[test]
     fn it_splits_a_linux_path_in_three() {
         assert_eq!(
-            split_path_buf(&PathBuf::from("something/really/deep")),
+            split_path(&PathBuf::from("something/really/deep")),
             vec![
                 String::from("something"),
                 String::from("really"),
@@ -37,7 +38,7 @@ mod tests {
     #[test]
     fn it_splits_an_absolute_linux_path() {
         assert_eq!(
-            split_path_buf(&PathBuf::from("/home/me/Documents")),
+            split_path(&PathBuf::from("/home/me/Documents")),
             vec![
                 String::from(""),
                 String::from("home"),
@@ -50,7 +51,7 @@ mod tests {
     #[test]
     fn it_splits_a_windows_path_in_two() {
         assert_eq!(
-            split_path_buf(&PathBuf::from("something\\deep")),
+            split_path(&PathBuf::from("something\\deep")),
             vec![String::from("something"), String::from("deep")]
         );
     }
@@ -58,7 +59,7 @@ mod tests {
     #[test]
     fn it_splits_a_windows_path_in_three() {
         assert_eq!(
-            split_path_buf(&PathBuf::from("something\\really\\deep")),
+            split_path(&PathBuf::from("something\\really\\deep")),
             vec![
                 String::from("something"),
                 String::from("really"),
@@ -70,7 +71,7 @@ mod tests {
     #[test]
     fn it_splits_an_absolute_windows_path() {
         assert_eq!(
-            split_path_buf(&PathBuf::from("C:\\Users\\me\\Documents")),
+            split_path(&PathBuf::from("C:\\Users\\me\\Documents")),
             vec![
                 String::from("C:"),
                 String::from("Users"),

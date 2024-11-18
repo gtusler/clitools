@@ -7,7 +7,9 @@ import { mkdirSync } from 'fs';
 
 const packages = [
     'clitinfo',
+    'clit-install',
     'countlines',
+    'listdirs',
     'mimers',
     'progressbar',
     'rot',

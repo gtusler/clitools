@@ -1,0 +1,14 @@
+[package]
+name = "installer"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "clit-install"
+path = "src/main.rs"
+
+[dependencies]
+clap.workspace = true
+clap_complete.workspace = true
+dirs.workspace = true
+librs.workspace = true

@@ -50,7 +50,7 @@ impl Display for Monitor {
     }
 }
 
-pub fn print_monitors(monitors: Vec<Monitor>) -> () {
+pub fn print_monitors(monitors: Vec<Monitor>) {
     let suffix = if monitors.len() == 1 { "" } else { "s" };
     println!("{} monitor{}", monitors.len(), suffix);
 
@@ -62,12 +62,8 @@ pub fn print_monitors(monitors: Vec<Monitor>) -> () {
 pub fn get_monitors() -> Result<Vec<Monitor>, GetMonitorError> {
     let which_xrandr = which("xrandr");
     match which_xrandr {
-        Some(_) => {
-            return Ok(get_monitors_xrandr());
-        }
-        None => {
-            return Err(GetMonitorError::NoUsableCommand);
-        }
+        Some(_) => Ok(get_monitors_xrandr()),
+        None => Err(GetMonitorError::NoUsableCommand),
     }
 }
 
@@ -82,9 +78,7 @@ pub fn get_monitors_xrandr() -> Vec<Monitor> {
         .expect("Failed to open xrandr stdout");
     let xrandr_ascii = xrandr_out.stdout.as_ascii().expect("That aint ascii");
     let xrandr_str = xrandr_ascii.as_str();
-    let xrandr_monitors = parse_xrandr(xrandr_str);
-
-    xrandr_monitors
+    parse_xrandr(xrandr_str)
 }
 
 pub fn parse_xrandr(input: &str) -> Vec<Monitor> {
@@ -93,7 +87,7 @@ pub fn parse_xrandr(input: &str) -> Vec<Monitor> {
     let meaningful: Vec<&str> = split
         .filter(|line| !line.starts_with("Screen"))
         .filter(|line| !line.starts_with("  "))
-        .filter(|line| *line != "")
+        .filter(|line| !line.is_empty())
         .collect();
 
     let mut output: Vec<Monitor> = vec![];
@@ -101,7 +95,7 @@ pub fn parse_xrandr(input: &str) -> Vec<Monitor> {
     for line in meaningful {
         let split: Vec<&str> = line.split(" ").filter(|word| *word != "primary").collect();
 
-        let name = split.get(0).expect("Unable to parse name").to_string();
+        let name = split.first().expect("Unable to parse name").to_string();
         let is_primary = line.contains("primary");
         let real_width_str = split
             .get(11)
@@ -138,11 +132,13 @@ pub fn parse_xrandr(input: &str) -> Vec<Monitor> {
 
 pub fn parse_xrandr_dimensions(input: String) -> (u16, u16) {
     let split_top: Vec<&str> = input.split("+").collect();
-    let dimensions_str = split_top.get(0).expect("Failed to find dimensions in line");
+    let dimensions_str = split_top
+        .first()
+        .expect("Failed to find dimensions in line");
     let dimensions_split: Vec<&str> = dimensions_str.split("x").collect();
 
     let width_str = dimensions_split
-        .get(0)
+        .first()
         .expect("Failed to find width in line");
     let height_str = dimensions_split
         .get(1)

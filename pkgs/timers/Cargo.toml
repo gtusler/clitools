@@ -6,6 +6,7 @@ edition.workspace = true
 [dependencies]
 chrono.workspace = true
 clap.workspace = true
+clap_complete.workspace = true
 color-print.workspace = true
 dirs.workspace = true
 librs.workspace = true

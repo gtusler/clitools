@@ -5,8 +5,10 @@ edition.workspace = true
 
 [dependencies]
 battery.workspace = true
+cargo_metadata = "0.18.1"
 chrono.workspace = true
 clap.workspace = true
+clap_complete.workspace = true
 platform-lp.workspace = true
 progressing.workspace = true
 serde.workspace = true

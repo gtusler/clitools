@@ -8,7 +8,7 @@ pub enum TimerEvent {
 }
 
 impl TimerEvent {
-    pub fn from_str(value: &str) -> TimerEvent {
+    pub fn from_str_clean(value: &str) -> TimerEvent {
         match value {
             "start" => TimerEvent::Start,
             "stop" => TimerEvent::Stop,

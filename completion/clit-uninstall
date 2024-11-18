@@ -1,0 +1,34 @@
+#compdef clit-uninstall
+
+autoload -U is-at-least
+
+_clit-uninstall() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'--generate-completion=[Generates completion scripts for the given command]: :(bash elvish fish powershell zsh)' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+}
+
+(( $+functions[_clit-uninstall_commands] )) ||
+_clit-uninstall_commands() {
+    local commands; commands=()
+    _describe -t commands 'clit-uninstall commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_clit-uninstall" ]; then
+    _clit-uninstall "$@"
+else
+    compdef _clit-uninstall clit-uninstall
+fi

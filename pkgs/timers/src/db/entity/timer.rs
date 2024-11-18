@@ -126,7 +126,7 @@ VALUES
             return Err(TimerError::SqliteError(e));
         }
 
-        match Timing::remove_unended(&connection) {
+        match Timing::remove_unended(connection) {
             Ok(_) => Ok(()),
             Err(e) => Err(TimerError::from(e)),
         }

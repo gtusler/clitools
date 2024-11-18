@@ -19,17 +19,17 @@ impl Args {
         let step = step_str.parse::<usize>();
         let sleep = sleep_str.parse::<usize>();
 
-        if let Err(_) = max {
+        if max.is_err() {
             println!("argument `max` must be a whole, positive number");
             process::exit(1);
         };
 
-        if let Err(_) = step {
+        if step.is_err() {
             println!("argument `step` must be a whole, positive number");
             process::exit(1);
         }
 
-        if let Err(_) = sleep {
+        if sleep.is_err() {
             println!("argument `sleep` must be a whole, positive number");
             process::exit(1);
         }

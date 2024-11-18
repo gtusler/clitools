@@ -5,7 +5,7 @@ use librs::datetime::datetime_comparison::is_same_ymd;
 use pretty_duration::{pretty_duration, PrettyDurationOptions, PrettyDurationOutputFormat};
 use std::time::Duration;
 
-pub fn print_timings(timings: Vec<Timing>) -> () {
+pub fn print_timings(timings: Vec<Timing>) {
     let mut durations: Vec<Duration> = Vec::new();
     let pretty_duration_options = Some(PrettyDurationOptions {
         output_format: Some(PrettyDurationOutputFormat::Compact),
@@ -46,7 +46,7 @@ pub fn print_timings(timings: Vec<Timing>) -> () {
         durations.push(duration);
     }
 
-    println!("");
+    println!();
     cprintln!("Sessions: <y>{}</>", timings.len());
 
     let duration_total: Duration = durations.into_iter().sum();

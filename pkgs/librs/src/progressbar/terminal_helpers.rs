@@ -7,7 +7,7 @@ pub fn get_terminal_dimensions(terminal: &Terminal<Stdout>) -> error::Result<(u1
 
     match size_result {
         Ok(retrieved) => match retrieved {
-            terminal::Retrieved::TerminalSize(x, y) => return Ok((x, y)),
+            terminal::Retrieved::TerminalSize(x, y) => Ok((x, y)),
             terminal::Retrieved::CursorPosition(_, _) => todo!(),
             terminal::Retrieved::Event(_) => todo!(),
         },

@@ -9,10 +9,7 @@ impl Project {
     pub fn exists(connection: &Connection, name: &str) -> bool {
         let possible_project = Project::fetch_by_name(connection, name);
 
-        match possible_project {
-            Ok(_) => true,
-            Err(_) => false,
-        }
+        possible_project.is_ok()
     }
 
     pub fn add(connection: &Connection, name: &str) -> Result<(), sqlite::Error> {
