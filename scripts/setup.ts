@@ -10,6 +10,7 @@ const packages = [
     'clit-install',
     'countlines',
     'diffdir',
+    'filers',
     'listdirs',
     'mimers',
     'progressbar',

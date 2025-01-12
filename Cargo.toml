@@ -21,6 +21,7 @@ members = [
     "pkgs/clitinfo",
     "pkgs/countlines",
     "pkgs/diffdir",
+    "pkgs/filers",
     "pkgs/installer",
     "pkgs/librs",
     "pkgs/listdirs",
@@ -42,6 +43,7 @@ clitools = { version = "0.1.0", path = "." }
 clitinfo = { version = "0.1.0", path = "pkgs/clitinfo" }
 countlines = { version = "0.1.0", path = "pkgs/countlines" }
 diffdir = { version = "0.1.0", path = "pkgs/diffdir" }
+files = { version = "0.1.0", path = "pkgs/filers" }
 installer = { version = "0.1.0", path = "pkgs/installer" }
 librs = { version = "0.1.0", path = "pkgs/librs" }
 listdirs = { version = "0.1.0", path = "pkgs/listdirs" }

@@ -3,6 +3,7 @@
 cargo build --release --package clitinfo
 cargo build --release --package countlines
 cargo build --release --package diffdir
+cargo build --release --package filers
 cargo build --release --package installer
 cargo build --release --package uninstaller
 cargo build --release --package listdirs
@@ -14,18 +15,19 @@ cargo build --release --package timers
 cargo build --release --package treers
 
 # mkdir bin
-cp target/release/clitinfo bin
-cp target/release/clit-install bin
-cp target/release/clit-uninstall bin
-cp target/release/countlines bin
-cp target/release/diffdir bin
-cp target/release/listdirs bin
-cp target/release/mimers bin
-cp target/release/progressbar bin
-cp target/release/rot bin
-cp target/release/sysinfo bin
-cp target/release/timers bin
-cp target/release/treers bin
+cp target/release/clitinfo ./bin/
+cp target/release/clit-install ./bin/
+cp target/release/clit-uninstall ./bin/
+cp target/release/countlines ./bin/
+cp target/release/diffdir ./bin/
+cp target/release/filers ./bin/
+cp target/release/listdirs ./bin/
+cp target/release/mimers ./bin/
+cp target/release/progressbar ./bin/
+cp target/release/rot ./bin/
+cp target/release/sysinfo ./bin/
+cp target/release/timers ./bin/
+cp target/release/treers ./bin/
 
 echo "Generating completion file for clitinfo";
 ./bin/clitinfo --generate-completion zsh > completion/clitinfo

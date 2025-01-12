@@ -1,0 +1,8 @@
+[package]
+name = "filers"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clap.workspace = true
+infer = "0.16.0"

@@ -2,7 +2,10 @@ use std::path::PathBuf;
 
 use clap::{builder::PathBufValueParser, Arg, ArgMatches, Command, ValueHint};
 use clap_complete::Shell;
-use librs::{cli::gen_completion::{self, print_completions}, fs::dir_tree::Tree};
+use librs::{
+    cli::gen_completion::{self, print_completions},
+    fs::dir_tree::Tree,
+};
 
 pub fn command() -> Command {
     Command::new("treers")
@@ -13,7 +16,7 @@ pub fn command() -> Command {
                 .help("The directory to tree")
                 .required(true)
                 .value_hint(ValueHint::DirPath)
-                .value_parser(PathBufValueParser::new())
+                .value_parser(PathBufValueParser::new()),
         )
 }
 

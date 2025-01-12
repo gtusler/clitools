@@ -1,5 +1,5 @@
-use std::{fmt::Display, fs, path::Path};
 use super::dir_tree_error::{LeafError, TreeError};
+use std::{fmt::Display, fs, path::Path};
 
 const CHAR_SPACE: &str = "   ";
 const CHAR_DOWN: &str = "│  ";
