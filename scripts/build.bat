@@ -5,6 +5,8 @@ cargo build --release --package countlines
 cargo build --release --package installer
 cargo build --release --package listdirs
 cargo build --release --package mimers
+cargo build --release --package meta
+cargo build --release --package music-meta-renamer
 cargo build --release --package progressbar
 cargo build --release --package rot
 cargo build --release --package sysinfo
@@ -16,6 +18,8 @@ cp target/release/clit-install bin
 cp target/release/countlines bin
 cp target/release/listdirs bin
 cp target/release/mimers bin
+cp target/release/meta bin
+cp target/release/music-meta-renamer bin
 cp target/release/progressbar bin
 cp target/release/rot bin
 cp target/release/sysinfo bin

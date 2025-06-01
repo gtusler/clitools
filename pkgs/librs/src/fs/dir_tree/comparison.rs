@@ -1,4 +1,4 @@
-use super::{dir_tree::Tree, dir_tree_difference::Difference, dir_tree_similarity::Similarity};
+use super::{difference::Difference, similarity::Similarity, tree::Tree};
 
 pub struct TreeComparison<'a> {
     tree1: &'a Tree,
@@ -62,7 +62,7 @@ impl<'a> TreeComparison<'a> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::fs::dir_tree::Leaf;
+    use crate::fs::dir_tree::leaf::Leaf;
 
     mod is_same_name {
         use super::*;
@@ -86,6 +86,7 @@ mod tests {
 
     mod is_identical {
         use super::*;
+        use crate::fs::extension::Extension;
 
         #[test]
         fn it_doesnt_include_name() {
@@ -108,6 +109,7 @@ mod tests {
                 vec![Leaf::File {
                     name: String::from("untitled.doc"),
                     fullpath: String::from("/testings/untitled.doc"),
+                    extension: Some(Extension::Doc),
                 }],
             );
             let tree2 = Tree::new(
@@ -115,6 +117,7 @@ mod tests {
                 vec![Leaf::File {
                     name: String::from("untitled.doc"),
                     fullpath: String::from("/testings/untitled.doc"),
+                    extension: Some(Extension::Doc),
                 }],
             );
             let tree_comparison = TreeComparison::new(&tree1, &tree2);
@@ -128,6 +131,7 @@ mod tests {
                 vec![Leaf::File {
                     name: String::from("untitled.doc"),
                     fullpath: String::from("/testings/untitled.doc"),
+                    extension: Some(Extension::Doc),
                 }],
             );
             let tree2 = Tree::new(
@@ -135,6 +139,7 @@ mod tests {
                 vec![Leaf::File {
                     name: String::from("untitled.txt"),
                     fullpath: String::from("/testings/untitled.txt"),
+                    extension: Some(Extension::Txt),
                 }],
             );
             let tree_comparison = TreeComparison::new(&tree1, &tree2);

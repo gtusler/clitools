@@ -10,7 +10,9 @@ chrono.workspace = true
 clap.workspace = true
 clap_complete.workspace = true
 color-print.workspace = true
+mp4ameta.workspace = true
 platform-lp.workspace = true
+pretty-duration.workspace = true
 progressing.workspace = true
 serde.workspace = true
 terminal = { version = "0.2.1", features = ["crossterm-backend"] }

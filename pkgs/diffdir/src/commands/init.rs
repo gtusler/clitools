@@ -6,8 +6,8 @@ use librs::{
         gen_completion::{self, print_completions},
     },
     fs::{
-        dir_tree::Tree, dir_tree_comparison::TreeComparison,
-        dir_tree_similarity::print_similarities,
+        dir_tree::comparison::TreeComparison, dir_tree::similarity::print_similarities,
+        dir_tree::tree::Tree,
     },
 };
 use std::path::PathBuf;

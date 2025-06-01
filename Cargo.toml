@@ -25,7 +25,9 @@ members = [
     "pkgs/installer",
     "pkgs/librs",
     "pkgs/listdirs",
+    "pkgs/meta",
     "pkgs/mimers",
+    "pkgs/music-meta-renamer",
     "pkgs/progressbar",
     "pkgs/rot",
     "pkgs/sysinfo",
@@ -48,6 +50,8 @@ installer = { version = "0.1.0", path = "pkgs/installer" }
 librs = { version = "0.1.0", path = "pkgs/librs" }
 listdirs = { version = "0.1.0", path = "pkgs/listdirs" }
 mimers = { version = "0.1.0", path = "pkgs/mimers" }
+meta = { version = "0.1.0", path = "pkgs/meta" }
+music-meta-renamer = { version  = "0.1.0", path = "pkgs/music-meta-renamer" }
 progressbar = { version = "0.1.0", path = "pkgs/progressbar" }
 sysinfo = { version = "0.1.0", path = "pkgs/sysinfo" }
 rot = { version = "0.1.0", path = "pkgs/rot" }
@@ -64,9 +68,11 @@ ctrlc = "3.4.5"
 dirs = "5.0.1"
 mime_more = "0.1.7"
 # mime_more = { version = "0.1.7", features = ["magic", "extension", "extension-light", "texture"] }
+mp4ameta = "0.12.1"
 platform-lp = "0.2.2"
 pretty-duration = "0.1.1"
 progressing = "3.0.2"
+regex = "1.11.1"
 serde = { version = "1.0.204", features = ["derive"] }
 serde_json = "1.0.122"
 sqlite = "0.36.1"

@@ -1,0 +1,12 @@
+[package]
+name = "music-meta-renamer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clap.workspace = true
+librs.workspace = true
+
+color-print.workspace = true
+mp3-metadata = "0.4.0"
+regex.workspace = true

@@ -1,0 +1,10 @@
+[package]
+name = "meta"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+clap.workspace = true
+librs.workspace = true
+mp4ameta.workspace = true
+pretty-duration.workspace = true

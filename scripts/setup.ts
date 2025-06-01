@@ -13,6 +13,8 @@ const packages = [
     'filers',
     'listdirs',
     'mimers',
+    'meta',
+    'music-meta-renamer',
     'progressbar',
     'rot',
     'sysinfo',

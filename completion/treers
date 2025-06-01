@@ -16,6 +16,10 @@ _treers() {
     local context curcontext="$curcontext" state line
     _arguments "${_arguments_options[@]}" : \
 '--generate-completion=[Generates completion scripts for the given command]: :(bash elvish fish powershell zsh)' \
+'*-e+[A file extension to filter the tree. Must include the \`.\` prefix. Can be set multiple times.]: :_default' \
+'*--extension=[A file extension to filter the tree. Must include the \`.\` prefix. Can be set multiple times.]: :_default' \
+'-d[Only show directories in the output.]' \
+'--dirs-only[Only show directories in the output.]' \
 '-h[Print help]' \
 '--help[Print help]' \
 ':dir -- The directory to tree:_files -/' \

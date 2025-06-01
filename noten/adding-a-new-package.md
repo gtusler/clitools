@@ -31,6 +31,8 @@ scripts/build.sh
 ```sh
 cargo build --release --package package_name
 
+cp target/release/package_name ./bin/
+
 echo "Generating completion file for package_name";
 ./bin/package_name --generate-completion zsh > completion/package_name
 ```
@@ -38,6 +40,8 @@ echo "Generating completion file for package_name";
 scripts/build.bat
 ```sh
 cargo build --release --package package_name
+
+cp target/release/package_name bin
 ```
 
 scripts/setup.ts
@@ -55,6 +59,6 @@ cargo clippy --package package_name
 
 Once you've done all of those things, you want to do:
 ```sh
-./scripts/build.sh
-./scripts/setup.ts
+just build
+just setup
 ```
